@@ -1,3 +1,10 @@
 <Solution>
-  <Project Path="GymTrackerApp.csproj" />
+  <Folder Name="/Data/">
+    <Project Path="../GymTrackerApp.Data.Models/GymTrackerApp.Data.Models.csproj" />
+    <Project Path="../GymTrackerApp.Data/GymTrackerApp.Data.csproj" />
+  </Folder>
+  <Folder Name="/Web/">
+    <Project Path="../GymTrackerApp.ViewModels/GymTrackerApp.ViewModels.csproj" />
+    <Project Path="GymTrackerApp.csproj" />
+  </Folder>
 </Solution>
