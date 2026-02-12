@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\GymTrackerApp.Common\GymTrackerApp.Common.csproj" />
+  </ItemGroup>
+
 </Project>

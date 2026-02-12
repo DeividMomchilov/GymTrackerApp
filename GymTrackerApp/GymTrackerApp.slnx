@@ -3,8 +3,12 @@
     <Project Path="../GymTrackerApp.Data.Models/GymTrackerApp.Data.Models.csproj" />
     <Project Path="../GymTrackerApp.Data/GymTrackerApp.Data.csproj" />
   </Folder>
+  <Folder Name="/Services/">
+    <Project Path="../GymTrackerApp.Services/GymTrackerApp.Services.csproj" Id="e5ec5ea5-9577-4d38-94b3-e6e8125c11d2" />
+  </Folder>
   <Folder Name="/Web/">
     <Project Path="../GymTrackerApp.ViewModels/GymTrackerApp.ViewModels.csproj" />
     <Project Path="GymTrackerApp.csproj" />
   </Folder>
+  <Project Path="../GymTrackerApp.Common/GymTrackerApp.Common.csproj" Id="798b914b-5c47-46af-829b-5a8904dd9ed4" />
 </Solution>

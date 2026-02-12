@@ -6,4 +6,14 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\GymTrackerApp.Data.Models\GymTrackerApp.Data.Models.csproj" />
+    <ProjectReference Include="..\GymTrackerApp.Data\GymTrackerApp.Data.csproj" />
+    <ProjectReference Include="..\GymTrackerApp.ViewModels\GymTrackerApp.ViewModels.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Contracts\" />
+  </ItemGroup>
+
 </Project>
