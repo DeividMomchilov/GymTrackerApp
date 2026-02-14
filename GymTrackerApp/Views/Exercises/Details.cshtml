@@ -1,8 +1,10 @@
 ﻿@using GymTrackerApp.ViewModels.ViewModels.Exercise;
+@using System.Security.Claims
 @model ExerciseViewModel
 
 @{
     ViewData["Title"] = "Exercise Details";
+    var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 }
 
 <div class="container mt-5">
@@ -35,7 +37,7 @@
                             <i class="bi bi-arrow-left"></i> Back to Library
                         </a>
 
-                        @if (User.Identity?.IsAuthenticated ?? false)
+                        @if (User.Identity?.IsAuthenticated ?? false && currentUserId == Model.CreatorId)
                         {
                             <div class="d-flex gap-2">
                                 <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">

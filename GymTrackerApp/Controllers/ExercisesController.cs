@@ -26,7 +26,8 @@ namespace GymTrackerApp.Controllers
                     Name = e.Name,
                     Description = e.Description,
                     ImageUrl = e.ImageUrl,
-                    MuscleName = e.Muscle.Name
+                    MuscleName = e.Muscle.Name,
+                    CreatorId = e.CreatorId
                 })
                 .OrderBy(e => e.Name)
                 .ToListAsync();
@@ -76,9 +77,17 @@ namespace GymTrackerApp.Controllers
                 CreatorId = GetUserId()!
             };
 
-            await dbContext.Exercises.AddAsync(exercise);
-            await dbContext.SaveChangesAsync();
-
+            try
+            {
+                await dbContext.Exercises.AddAsync(exercise);
+                await dbContext.SaveChangesAsync();
+            }
+            catch (DbUpdateException)
+            {
+                ModelState.AddModelError(string.Empty, "An error occurred while saving the exercise. Please try again.");
+                model.Muscles = await GetMuscles();
+                return View(model);
+            }
             return RedirectToAction(nameof(Index));
         }
 
@@ -102,7 +111,8 @@ namespace GymTrackerApp.Controllers
                 Name = exercise.Name,
                 Description = exercise.Description,
                 ImageUrl = exercise.ImageUrl,
-                MuscleName = exercise.Muscle.Name
+                MuscleName = exercise.Muscle.Name,
+                CreatorId = exercise.CreatorId
             };
             return View(model);
         }
@@ -157,12 +167,21 @@ namespace GymTrackerApp.Controllers
             if (exercise == null)
                 return NotFound();
 
-            exercise.Name = model.Name;
-            exercise.Description = model.Description;
-            exercise.ImageUrl = model.ImageUrl;
-            exercise.MuscleId = dbContext.Muscles.FirstOrDefault(m => m.Id == model.MuscleId)?.Id ?? 0;
+            try
+            {
+                exercise.Name = model.Name;
+                exercise.Description = model.Description;
+                exercise.ImageUrl = model.ImageUrl;
+                exercise.MuscleId = dbContext.Muscles.FirstOrDefault(m => m.Id == model.MuscleId)?.Id ?? 0;
+                await dbContext.SaveChangesAsync();
+            }
+            catch (DbUpdateException)
+            {
+                ModelState.AddModelError(string.Empty, "An error occurred while saving the exercise. Please try again.");
+                model.Muscles = await GetMuscles();
+                return View(model);
+            }
 
-            await dbContext.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
@@ -178,11 +197,20 @@ namespace GymTrackerApp.Controllers
                 return NotFound();
 
             var userId = GetUserId();
-            if (exercise?.CreatorId != userId)
+            if (exercise.CreatorId != userId)
                 return Unauthorized();
 
-            dbContext.Exercises.Remove(exercise);
-            await dbContext.SaveChangesAsync();
+            try
+            {
+                dbContext.Exercises.Remove(exercise);
+                await dbContext.SaveChangesAsync();
+            }
+            catch (DbUpdateException)
+            {
+                ModelState.AddModelError(string.Empty, "An error occurred while deleting the exercise. Please try again.");
+                return RedirectToAction(nameof(Details), new { id });
+            }
+
             return RedirectToAction(nameof(Index));
         }
 
