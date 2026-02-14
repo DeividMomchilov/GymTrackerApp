@@ -1,31 +1,54 @@
-html {
-  font-size: 14px;
-}
-
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
+html, body {
+    height: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
-  margin-bottom: 60px;
+    background-color: #212529; /* Dark Bootstrap Color */
+    color: #f8f9fa; /* Light Text */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
+/* Ensure footer sticks to bottom */
+.main-content {
+    flex: 1;
 }
 
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
+/* Fix for links on dark background */
+a {
+    text-decoration: none;
 }
+
+/* Footer styling */
+.footer {
+    flex-shrink: 0;
+    background-color: #212529; /* Dark footer */
+    color: #adb5bd;
+}
+
+    .footer a {
+        color: #fff;
+        text-decoration: none;
+    }
+
+        .footer a:hover {
+            color: #0d6efd; /* Primary blue on hover */
+            text-decoration: underline;
+        }
+
+/* Navbar Tweaks */
+.navbar-brand {
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+/* Card Hover Effect */
+.card {
+    transition: transform 0.2s;
+}
+
+    .card:hover {
+        transform: translateY(-5px);
+    }

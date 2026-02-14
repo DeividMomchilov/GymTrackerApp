@@ -20,8 +20,7 @@ namespace GymTrackerApp.ViewModels.ViewModels
         public string? ImageUrl { get; set; }
 
         [Required]
-        [StringLength(MuscleNameMaxLength,MinimumLength = MuscleNameMinLength)]
-        public string MuscleName { get; set; } = null!;
+        public int MuscleId { get; set; }
 
         public IEnumerable<MuscleViewModel> Muscles { get; set; } = new List<MuscleViewModel>();
     }

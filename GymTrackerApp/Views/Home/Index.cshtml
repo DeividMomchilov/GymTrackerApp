@@ -2,7 +2,48 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="p-5 mb-4 bg-secondary text-white rounded-3 shadow">
+    <div class="container-fluid py-5">
+        <h1 class="display-5 fw-bold">Welcome to GymTracker</h1>
+        <p class="col-md-8 fs-4">Your ultimate companion for tracking workouts, building muscle, and staying consistent.</p>
+
+        @if (User.Identity?.IsAuthenticated ?? false)
+        {
+            <div class="d-flex gap-2">
+                <a class="btn btn-dark btn-lg border-white" asp-controller="Workouts" asp-action="Index" role="button">
+                    <i class="bi bi-journal-text"></i> My Workouts
+                </a>
+                <a class="btn btn-outline-light btn-lg" asp-controller="Exercises" asp-action="Index" role="button">
+                    <i class="bi bi-collection"></i> Exercise Library
+                </a>              
+            </div>
+        }
+        else
+        {
+            <div class="d-flex gap-2">
+                <a class="btn btn-light btn-lg" asp-area="Identity" asp-page="/Account/Register" role="button">Join Now</a>
+                <a class="btn btn-outline-light btn-lg" asp-area="Identity" asp-page="/Account/Login" role="button">Login</a>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="row align-items-md-stretch">
+    <div class="col-md-6 mb-3">
+        <div class="h-100 p-5 text-white bg-dark rounded-3 border border-secondary shadow-sm">
+            <h2><i class="bi bi-lightning-fill text-warning"></i> Build Your Program</h2>
+            <p>Create custom workout plans tailored to your goals. Mix and match exercises to create the perfect routine.</p>
+            @if (User.Identity?.IsAuthenticated ?? false)
+            {
+                <a class="btn btn-outline-light" asp-controller="Workouts" asp-action="Create">Create Workout</a>
+            }
+        </div>
+    </div>
+    <div class="col-md-6 mb-3">
+        <div class="h-100 p-5 text-white bg-dark rounded-3 border border-secondary shadow-sm">
+            <h2><i class="bi bi-search text-info"></i> Discover Exercises</h2>
+            <p>Browse our extensive library of exercises categorized by muscle group. Find the right movement for your gains.</p>
+            <a class="btn btn-outline-light" asp-controller="Exercises" asp-action="Index">Browse Library</a>
+        </div>
+    </div>
 </div>
