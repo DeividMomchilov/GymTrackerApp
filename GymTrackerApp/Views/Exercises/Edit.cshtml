@@ -1,0 +1,59 @@
+﻿@using GymTrackerApp.ViewModels.ViewModels
+@model ExerciseFormViewModel
+
+@{
+    ViewData["Title"] = "Edit Exercise";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card bg-dark text-white border-secondary shadow-lg">
+            <div class="card-header bg-black border-secondary">
+                <h4 class="mb-0 text-white"><i class="bi bi-plus-square"></i> Edit Exercise</h4>
+            </div>
+            <div class="card-body">
+                <form asp-action="Edit" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                    <div class="mb-3">
+                        <label asp-for="Name" class="form-label text-light">Exercise Name</label>
+                        <input asp-for="Name" class="form-control bg-secondary text-white border-dark" placeholder="e.g. Bench Press" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Description" class="form-label text-light">Description</label>
+                        <textarea asp-for="Description" class="form-control bg-secondary text-white border-dark" rows="3" placeholder="Describe the movement..."></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="ImageUrl" class="form-label text-light">Image URL</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-dark text-secondary border-secondary"><i class="bi bi-link"></i></span>
+                            <input asp-for="ImageUrl" class="form-control bg-secondary text-white border-dark" placeholder="https://..." />
+                        </div>
+                        <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="MuscleId" class="form-label text-light">Target Muscle</label>
+                        <select asp-for="MuscleId" class="form-select bg-secondary text-white border-dark" asp-items="@(new SelectList(Model.Muscles, "Id", "Name"))">
+                            <option value="" class="text-dark">-- Select Target Muscle --</option>
+                        </select>
+                        <span asp-validation-for="MuscleId" class="text-danger"></span>
+                    </div>
+
+                    <div class="d-grid gap-2 mt-4">
+                        <button type="submit" class="btn btn-primary btn-lg">Save Exercise</button>
+                        <a asp-action="Index" class="btn btn-outline-light">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

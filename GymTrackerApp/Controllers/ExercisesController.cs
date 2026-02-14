@@ -133,7 +133,7 @@ namespace GymTrackerApp.Controllers
                 Muscles = await GetMuscles()
             };
 
-            return View("Add",model);
+            return View(model);
         }
 
 
