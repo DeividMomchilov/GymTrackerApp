@@ -33,6 +33,8 @@ namespace GymTrackerApp.Controllers
             return View(exercises);
         }
 
+
+        //Add
         [HttpGet]
         public async Task<IActionResult> Add()
         {
@@ -53,23 +55,12 @@ namespace GymTrackerApp.Controllers
                 return View(model);
             }
 
-            var existingExercise = await dbContext.Exercises
-                .AsNoTracking()
-                .FirstOrDefaultAsync(e => e.Name == model.Name);
-
-            if (existingExercise != null)
-            {
-                ModelState.AddModelError(nameof(model.Name), "An exercise with this name already exists.");
-                model.Muscles = await GetMuscles();
-                return View(model);
-            }
-
             var exercise = new Exercise
             {
                 Name = model.Name,
                 Description = model.Description,
                 ImageUrl = model.ImageUrl,
-                MuscleId = dbContext.Muscles.FirstOrDefault(m => m.Name == model.MuscleName)?.Id ?? 0
+                MuscleId = dbContext.Muscles.FirstOrDefault(m => m.Id == model.MuscleId)?.Id ?? 0,
             };
 
             await dbContext.Exercises.AddAsync(exercise);
@@ -78,6 +69,33 @@ namespace GymTrackerApp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        //Details
+        [AllowAnonymous]
+        [HttpGet]
+        public async Task<IActionResult> Details(int id)
+        {
+            var exercise = await dbContext
+                .Exercises
+                .Include(e => e.Muscle)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(e => e.Id == id);
+
+            if (exercise == null)
+                return NotFound();
+
+            var model = new ExerciseViewModel
+            {
+                Id = exercise.Id,
+                Name = exercise.Name,
+                Description = exercise.Description,
+                ImageUrl = exercise.ImageUrl,
+                MuscleName = exercise.Muscle.Name
+            };
+            return View(model);
+        }
+
+
+        //Edit
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
@@ -94,12 +112,13 @@ namespace GymTrackerApp.Controllers
                 Name = exercise.Name,
                 Description = exercise.Description,
                 ImageUrl = exercise.ImageUrl,
-                MuscleName = exercise.Muscle.Name,
+                MuscleId = exercise.MuscleId,
                 Muscles = await GetMuscles()
             };
 
             return View("Add",model);
         }
+
 
         [HttpPost]
         public async Task<IActionResult> Edit(int id, ExerciseFormViewModel model)
@@ -120,12 +139,13 @@ namespace GymTrackerApp.Controllers
             exercise.Name = model.Name;
             exercise.Description = model.Description;
             exercise.ImageUrl = model.ImageUrl;
-            exercise.MuscleId = dbContext.Muscles.FirstOrDefault(m => m.Name == model.MuscleName)?.Id ?? 0;
+            exercise.MuscleId = dbContext.Muscles.FirstOrDefault(m => m.Id == model.MuscleId)?.Id ?? 0;
 
             await dbContext.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
+        //Delete
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
@@ -142,6 +162,7 @@ namespace GymTrackerApp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        //Helper method
         private async Task<IEnumerable<MuscleViewModel>> GetMuscles()
         {
             return await dbContext

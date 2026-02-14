@@ -22,7 +22,6 @@ namespace GymTrackerApp.Data.Models
         [MaxLength(WorkoutDescriptionMaxLength)]
         public string Description { get; set; } = null!;
 
-        
         public string CreatorId { get; set; } = null!;
 
         public virtual IdentityUser Creator { get; set; } = null!;
