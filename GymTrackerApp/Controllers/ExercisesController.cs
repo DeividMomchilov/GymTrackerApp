@@ -9,7 +9,8 @@ using Microsoft.EntityFrameworkCore;
 namespace GymTrackerApp.Controllers
 {
     [Authorize]
-    public class ExercisesController(ApplicationDbContext dbContext) : BaseController
+    public class ExercisesController(ApplicationDbContext dbContext) 
+        : BaseController
     {
         [AllowAnonymous]
         [HttpGet]
@@ -55,12 +56,24 @@ namespace GymTrackerApp.Controllers
                 return View(model);
             }
 
+            var existingExercise = await dbContext
+                .Exercises
+                .FirstOrDefaultAsync(e => e.Name.ToLower() == model.Name.ToLower());
+
+            if (existingExercise != null)
+            {
+                ModelState.AddModelError(nameof(model.Name), "An exercise with this name already exists.");
+                model.Muscles = await GetMuscles();
+                return View(model);
+            }
+
             var exercise = new Exercise
             {
                 Name = model.Name,
                 Description = model.Description,
                 ImageUrl = model.ImageUrl,
                 MuscleId = dbContext.Muscles.FirstOrDefault(m => m.Id == model.MuscleId)?.Id ?? 0,
+                CreatorId = GetUserId()!
             };
 
             await dbContext.Exercises.AddAsync(exercise);
@@ -104,6 +117,10 @@ namespace GymTrackerApp.Controllers
                 .Include(e => e.Muscle)
                 .FirstOrDefaultAsync(e => e.Id == id);
 
+            var userId = GetUserId();
+             if (exercise?.CreatorId != userId)
+               return Unauthorized();
+
             if (exercise == null)
                 return NotFound();
 
@@ -133,6 +150,10 @@ namespace GymTrackerApp.Controllers
                 .Exercises
                 .FirstOrDefaultAsync(e => e.Id == id);
 
+            var userId = GetUserId();
+            if (exercise?.CreatorId != userId)
+                return Unauthorized();
+
             if (exercise == null)
                 return NotFound();
 
@@ -156,6 +177,9 @@ namespace GymTrackerApp.Controllers
             if (exercise == null)
                 return NotFound();
 
+            var userId = GetUserId();
+            if (exercise?.CreatorId != userId)
+                return Unauthorized();
 
             dbContext.Exercises.Remove(exercise);
             await dbContext.SaveChangesAsync();

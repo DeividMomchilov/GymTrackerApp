@@ -4,7 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GymTrackerApp.Controllers
 {
-    public class HomeController : BaseController
+    public class HomeController 
+        : BaseController
     {
         public IActionResult Index()
         {

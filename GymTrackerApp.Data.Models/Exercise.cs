@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -27,6 +28,9 @@ namespace GymTrackerApp.Data.Models
 
         [Required]
         public virtual Muscle Muscle { get; set; } = null!;
+
+        public string CreatorId { get; set; } = null!;
+        public virtual IdentityUser? Creator { get; set; } = null!;
 
         public virtual ICollection<WorkoutExercise> WorkoutExercises { get; set; }
             = new HashSet<WorkoutExercise>();

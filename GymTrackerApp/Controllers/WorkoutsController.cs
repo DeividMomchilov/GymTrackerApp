@@ -8,7 +8,8 @@ using Microsoft.EntityFrameworkCore;
 namespace GymTrackerApp.Controllers
 {
     [Authorize]
-    public class WorkoutsController(ApplicationDbContext dbContext) : BaseController
+    public class WorkoutsController(ApplicationDbContext dbContext) 
+        : BaseController
     {
         [HttpGet]
         public async Task<IActionResult> Index()
