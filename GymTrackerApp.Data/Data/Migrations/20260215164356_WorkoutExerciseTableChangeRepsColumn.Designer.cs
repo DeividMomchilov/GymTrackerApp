@@ -4,6 +4,7 @@ using GymTrackerApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GymTrackerApp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260215164356_WorkoutExerciseTableChangeRepsColumn")]
+    partial class WorkoutExerciseTableChangeRepsColumn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -58,80 +61,6 @@ namespace GymTrackerApp.Data.Migrations
                     b.HasIndex("MuscleId");
 
                     b.ToTable("Exercises");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatorId = "3026ea73-023b-4901-b63b-ca12cd6fe019",
-                            Description = "The king of leg exercises. Targets quads, hamstrings, and glutes.",
-                            ImageUrl = "https://example.com/squat.jpg",
-                            MuscleId = 13,
-                            Name = "Squat"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CreatorId = "3026ea73-023b-4901-b63b-ca12cd6fe019",
-                            Description = "A compound movement that works the entire posterior chain.",
-                            ImageUrl = "https://example.com/deadlift.jpg",
-                            MuscleId = 3,
-                            Name = "Deadlift"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            CreatorId = "3026ea73-023b-4901-b63b-ca12cd6fe019",
-                            Description = "A classic shoulder builder performed with a barbell.",
-                            ImageUrl = "https://example.com/ohp.jpg",
-                            MuscleId = 6,
-                            Name = "Overhead Press"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            CreatorId = "3026ea73-023b-4901-b63b-ca12cd6fe019",
-                            Description = "A machine exercise that targets the latissimus dorsi.",
-                            ImageUrl = "https://example.com/latpulldown.jpg",
-                            MuscleId = 4,
-                            Name = "Lat Pulldown"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            CreatorId = "3026ea73-023b-4901-b63b-ca12cd6fe019",
-                            Description = "An isolation exercise for the biceps.",
-                            ImageUrl = "https://example.com/bicepcurl.jpg",
-                            MuscleId = 7,
-                            Name = "Barbell Curl"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            CreatorId = "3026ea73-023b-4901-b63b-ca12cd6fe019",
-                            Description = "An isolation exercise for the triceps using a cable machine.",
-                            ImageUrl = "https://example.com/triceppushdown.jpg",
-                            MuscleId = 8,
-                            Name = "Tricep Rope Pushdown"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            CreatorId = "3026ea73-023b-4901-b63b-ca12cd6fe019",
-                            Description = "Isolation exercise for the hamstrings.",
-                            ImageUrl = "https://example.com/legcurl.jpg",
-                            MuscleId = 14,
-                            Name = "Leg Curl"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            CreatorId = "3026ea73-023b-4901-b63b-ca12cd6fe019",
-                            Description = "Simple but effective exercise for building calves.",
-                            ImageUrl = "https://example.com/calfraise.jpg",
-                            MuscleId = 16,
-                            Name = "Calf Raise"
-                        });
                 });
 
             modelBuilder.Entity("GymTrackerApp.Data.Models.Muscle", b =>
