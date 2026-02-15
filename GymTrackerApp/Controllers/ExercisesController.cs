@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GymTrackerApp.Controllers
 {
-    [Authorize]
     public class ExercisesController(ApplicationDbContext dbContext) 
         : BaseController
     {

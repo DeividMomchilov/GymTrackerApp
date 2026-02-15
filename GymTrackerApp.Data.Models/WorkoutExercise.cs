@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+using static GymTrackerApp.Common.EntityValidation;
 
 namespace GymTrackerApp.Data.Models
 {
@@ -21,12 +22,12 @@ namespace GymTrackerApp.Data.Models
         public virtual Exercise Exercise { get; set; } = null!;
 
         [Required]
-        [Range(1,50)]
+        [Range(SetsMinValue, SetsMaxValue)]
         public int Sets { get; set; }
 
         [Required]
-        [Range(1, 50)]
-        public int Repetitions { get; set; }
+        [Range(RepsMinValue, RepsMaxValue)]
+        public int Reps { get; set; }
 
         [Required]
         public double Weight { get; set; }

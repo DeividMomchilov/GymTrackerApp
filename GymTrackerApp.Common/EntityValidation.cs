@@ -23,5 +23,11 @@ namespace GymTrackerApp.Common
 
         public const int WorkoutDescriptionMinLength = 10;
         public const int WorkoutDescriptionMaxLength = 1000;
+
+        public const int SetsMinValue = 1;
+        public const int SetsMaxValue = 50;
+
+        public const int RepsMinValue = 1;
+        public const int RepsMaxValue = 1000;
     }
 }
