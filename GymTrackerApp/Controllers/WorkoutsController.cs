@@ -92,7 +92,7 @@ namespace GymTrackerApp.Controllers
                 Description = workout.Description
             };
 
-            return View(workout);
+            return View(model);
         }
 
         [HttpPost]
@@ -100,8 +100,6 @@ namespace GymTrackerApp.Controllers
         {
             if (!ModelState.IsValid)
                 return View(model);
-
-
 
             var workout = await dbContext.Workouts
                 .Where(w => w.Id == id && w.CreatorId == GetUserId())
