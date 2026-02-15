@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using GymTrackerApp.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GymTrackerApp.Controllers
@@ -7,6 +8,7 @@ namespace GymTrackerApp.Controllers
     public class HomeController 
         : BaseController
     {
+        [AllowAnonymous]
         public IActionResult Index()
         {
             return View();
