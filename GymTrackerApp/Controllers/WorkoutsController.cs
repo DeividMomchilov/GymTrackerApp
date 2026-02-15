@@ -92,7 +92,7 @@ namespace GymTrackerApp.Controllers
                 Description = workout.Description
             };
 
-            return View(model);
+            return View(model); 
         }
 
         [HttpPost]
@@ -195,10 +195,10 @@ namespace GymTrackerApp.Controllers
 
         //Add Exercise
         [HttpGet]
-        public async Task<IActionResult> AddExercise(int workoutId)
+        public async Task<IActionResult> AddExercise(int id)
         {
             var workout = await dbContext.Workouts
-                .Where(w => w.Id == workoutId && w.CreatorId == GetUserId())
+                .Where(w => w.Id == id && w.CreatorId == GetUserId())
                 .FirstOrDefaultAsync();
 
             if (workout == null)
@@ -222,14 +222,14 @@ namespace GymTrackerApp.Controllers
                     .ToListAsync()
             };
 
-            return RedirectToAction(nameof(Details), new { id = workoutId });
+            return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddExercise(int workoutId, WorkoutExerciseFormViewModel model)
+        public async Task<IActionResult> AddExercise(int id, WorkoutExerciseFormViewModel model)
         {
             var workout = await dbContext.Workouts
-                .Where(w => w.Id == workoutId && w.CreatorId == GetUserId())
+                .Where(w => w.Id == id && w.CreatorId == GetUserId())
                 .FirstOrDefaultAsync();
 
             if (workout == null)
@@ -247,7 +247,7 @@ namespace GymTrackerApp.Controllers
 
             var workoutExercise = new WorkoutExercise
             {
-                WorkoutId = workoutId,
+                WorkoutId = model.WorkoutId,
                 ExerciseId = model.ExerciseId,
                 Sets = model.Sets,
                 Reps = model.Reps,
@@ -262,10 +262,10 @@ namespace GymTrackerApp.Controllers
             catch (DbUpdateException)
             {
                 ModelState.AddModelError(string.Empty, "An error occurred while adding the exercise to the workout. Please try again.");
-                return RedirectToAction(nameof(Details), new { id = workoutId });
+                return RedirectToAction(nameof(Details), new { id = id });
             }
 
-            return RedirectToAction(nameof(Details), new { id = workoutId });
+            return RedirectToAction(nameof(Details), new { id = id });
         }
 
         //Remove Exercise

@@ -11,7 +11,7 @@
             <h1 class="text-info">@Model.Title</h1>
             <p class="lead text-white-50">@Model.Description</p>
         </div>
-        <a asp-action="AddExercise" asp-route-id="@Model.Id" class="btn btn-success btn-lg">
+        <a asp-controller="Workouts" asp-action="AddExercise" asp-route-id="@Model.Id" class="btn btn-success btn-lg">
             <i class="bi bi-plus-circle"></i> Add Exercise
         </a>
     </div>

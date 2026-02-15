@@ -202,7 +202,7 @@ namespace GymTrackerApp.Data.Migrations
                     b.Property<int>("ExerciseId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Repetitions")
+                    b.Property<int>("Reps")
                         .HasColumnType("int");
 
                     b.Property<int>("Sets")
