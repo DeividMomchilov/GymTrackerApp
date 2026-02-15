@@ -58,7 +58,7 @@ else
                             <a asp-action="Details" asp-route-id="@exercise.Id" class="btn btn-outline-info flex-grow-1">
                                 <i class="bi bi-info-circle"></i> Details
                             </a>
-                            @if (User.Identity?.IsAuthenticated ?? false && currentUserId == exercise.CreatorId)
+                            @if (currentUserId == exercise.CreatorId)
                             {
                                 <a asp-action="Edit" asp-route-id="@exercise.Id" class="btn btn-warning" title="Edit">
                                     <i class="bi bi-pencil"></i>
