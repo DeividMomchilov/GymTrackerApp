@@ -1,5 +1,6 @@
 ﻿using GymTrackerApp.Data;
 using GymTrackerApp.Data.Models;
+using GymTrackerApp.Services.Contracts;
 using GymTrackerApp.ViewModels.ViewModels.Exercise;
 using GymTrackerApp.ViewModels.ViewModels.Workout;
 using Microsoft.AspNetCore.Authorization;
@@ -9,22 +10,14 @@ using System.Collections;
 
 namespace GymTrackerApp.Controllers
 {
-    public class WorkoutsController(ApplicationDbContext dbContext)
+    public class WorkoutsController(ApplicationDbContext dbContext, IWorkoutService workoutService)
         : BaseController
     {
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var workouts = await dbContext.Workouts
-                .Where(w => w.CreatorId == GetUserId())
-                .Select(w => new WorkoutViewModel
-                {
-                    Id = w.Id,
-                    Title = w.Title,
-                    Description = w.Description
-                })
-                .AsNoTracking()
-                .ToListAsync();
+            var workouts = await workoutService
+                .GetWorkoutsForTheCurrentUserAsync(GetUserId()!);
 
             return View(workouts);
         }
@@ -42,9 +35,8 @@ namespace GymTrackerApp.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            var existingWorkout = await dbContext
-                .Workouts
-                .FirstOrDefaultAsync(w => w.Title == model.Title && w.CreatorId == GetUserId());
+            var existingWorkout = await workoutService
+                .GetWorkoutByTitleAndCreatorIdAsync(model, GetUserId()!);
 
             if (existingWorkout != null)
             {
@@ -52,17 +44,9 @@ namespace GymTrackerApp.Controllers
                 return View(model);
             }
 
-            var workout = new Workout
-            {
-                Title = model.Title,
-                Description = model.Description,
-                CreatorId = GetUserId()!
-            };
-
             try
             {
-                await dbContext.Workouts.AddAsync(workout);
-                await dbContext.SaveChangesAsync();
+                await workoutService.CreateWorkoutAsync(model, GetUserId()!);
             }
             catch (DbUpdateException)
             {
@@ -76,9 +60,8 @@ namespace GymTrackerApp.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            var workout = await dbContext.Workouts
-                .Where(w => w.Id == id && w.CreatorId == GetUserId())
-                .FirstOrDefaultAsync();
+            var workout = await workoutService
+                .GetSpecificWorkoutByIdAndCreatorIdAsync(id,GetUserId()!);
 
             if (workout == null)
             {
@@ -101,9 +84,8 @@ namespace GymTrackerApp.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            var workout = await dbContext.Workouts
-                .Where(w => w.Id == id && w.CreatorId == GetUserId())
-                .FirstOrDefaultAsync();
+            var workout = await workoutService
+                .GetSpecificWorkoutByIdAndCreatorIdAsync(id, GetUserId()!);
 
             if (workout == null)
             {
@@ -113,11 +95,7 @@ namespace GymTrackerApp.Controllers
 
             try
             {
-                workout.Title = model.Title;
-                workout.Description = model.Description;
-
-                dbContext.Workouts.Update(workout);
-                await dbContext.SaveChangesAsync();
+                await workoutService.EditWorkoutAsync(workout, model);
             }
             catch (DbUpdateException)
             {
@@ -132,9 +110,8 @@ namespace GymTrackerApp.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
-            var workout = await dbContext
-                .Workouts
-                .FirstOrDefaultAsync(w => w.Id == id && w.CreatorId == GetUserId());
+            var workout = await workoutService
+                .GetSpecificWorkoutByIdAndCreatorIdAsync(id, GetUserId()!);
 
             if (workout == null)
             {
@@ -144,8 +121,7 @@ namespace GymTrackerApp.Controllers
 
             try
             {
-                dbContext.Workouts.Remove(workout);
-                await dbContext.SaveChangesAsync();
+                await workoutService.DeleteWorkoutAsync(workout);
             }
             catch (DbUpdateException)
             {
@@ -160,13 +136,8 @@ namespace GymTrackerApp.Controllers
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
-            var workout = await dbContext
-                .Workouts
-                .Include(w => w.WorkoutExercises)
-                .ThenInclude(we => we.Exercise)
-                .ThenInclude(e => e.Muscle)
-                .AsNoTracking()
-                .FirstOrDefaultAsync(w => w.Id == id && w.CreatorId == GetUserId());
+            var workout = await workoutService
+                .GetDetailedWorkoutAsync(id,GetUserId()!);
 
             if (workout == null)
             {
@@ -197,9 +168,8 @@ namespace GymTrackerApp.Controllers
         [HttpGet]
         public async Task<IActionResult> AddExercise(int id)
         {
-            var workout = await dbContext.Workouts
-                .Where(w => w.Id == id && w.CreatorId == GetUserId())
-                .FirstOrDefaultAsync();
+            var workout = await workoutService
+                .GetSpecificWorkoutByIdAndCreatorIdAsync(id, GetUserId()!);
 
             if (workout == null)
             {
@@ -218,7 +188,6 @@ namespace GymTrackerApp.Controllers
                         Name = e.Name,
                         MuscleName = e.Muscle.Name
                     })
-                    .AsNoTracking()
                     .ToListAsync()
             };
 
@@ -228,9 +197,8 @@ namespace GymTrackerApp.Controllers
         [HttpPost]
         public async Task<IActionResult> AddExercise(int id, WorkoutExerciseFormViewModel model)
         {
-            var workout = await dbContext.Workouts
-                .Where(w => w.Id == id && w.CreatorId == GetUserId())
-                .FirstOrDefaultAsync();
+            var workout = await workoutService
+                .GetSpecificWorkoutByIdAndCreatorIdAsync(id, GetUserId()!);
 
             if (workout == null)
             {
@@ -241,23 +209,13 @@ namespace GymTrackerApp.Controllers
             if(workout.WorkoutExercises.Any(we => we.ExerciseId == model.ExerciseId))
             {
                 ModelState.AddModelError(string.Empty, "This exercise is already in your workout.");
-                model.AvailableExercises = await GetExercises();
+                model.AvailableExercises = await workoutService.GetExercisesAsync();
                 return View(model);
             }
 
-            var workoutExercise = new WorkoutExercise
-            {
-                WorkoutId = model.WorkoutId,
-                ExerciseId = model.ExerciseId,
-                Sets = model.Sets,
-                Reps = model.Reps,
-                Weight = model.Weight
-            };
-
             try
             {
-                await dbContext.WorkoutExercises.AddAsync(workoutExercise);
-                await dbContext.SaveChangesAsync();
+                await workoutService.AddExerciseToWorkoutAsync(model);
             }
             catch (DbUpdateException)
             {
@@ -272,10 +230,8 @@ namespace GymTrackerApp.Controllers
         [HttpPost]
         public async Task<IActionResult> RemoveExercise(int workoutId, int exerciseId)
         {
-            var workout = await dbContext
-                .Workouts
-                .Where(w => w.Id == workoutId && w.CreatorId == GetUserId())
-                .FirstOrDefaultAsync();
+            var workout = await workoutService
+                .GetSpecificWorkoutByIdAndCreatorIdAsync(workoutId, GetUserId()!);
 
             if (workout == null)
             {
@@ -283,11 +239,9 @@ namespace GymTrackerApp.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            var workoutExercise = await dbContext
-                .WorkoutExercises
-                .FirstOrDefaultAsync(we => we.WorkoutId == workoutId && we.ExerciseId == exerciseId);
+            var workoutExercise = await workoutService.GetWorkoutExerciseAsync(workoutId, exerciseId);
 
-            if(workoutExercise == null)
+            if (workoutExercise == null)
             {
                 ModelState.AddModelError(string.Empty, "Exercise not found in this workout.");
                 return RedirectToAction(nameof(Details), new { id = workoutId });
@@ -295,31 +249,13 @@ namespace GymTrackerApp.Controllers
 
             try
             {
-                dbContext.WorkoutExercises.Remove(workoutExercise);
-                await dbContext.SaveChangesAsync();
+                await workoutService.RemoveExerciseFromWorkoutAsync(workoutExercise);
             }
             catch (DbUpdateException)
             {
                 ModelState.AddModelError(string.Empty, "An error occurred while removing the exercise from the workout. Please try again.");
             }
             return RedirectToAction(nameof(Details), new { id = workoutId });
-        }
-
-
-        public async Task<IEnumerable<ExerciseViewModel>> GetExercises()
-        {
-            return await dbContext
-                .Exercises
-                .AsNoTracking()
-                .Select(e => new ExerciseViewModel
-                {
-                    Id= e.Id,
-                    Name = e.Name,
-                    MuscleName = e.Muscle.Name
-                })
-                .OrderBy(e => e.Name)
-                .ThenBy(e => e.MuscleName)
-                .ToListAsync();
         }
     }
 }
