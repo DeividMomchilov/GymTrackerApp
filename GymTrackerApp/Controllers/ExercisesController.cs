@@ -1,5 +1,7 @@
 ﻿using GymTrackerApp.Data;
 using GymTrackerApp.Data.Models;
+using GymTrackerApp.Services;
+using GymTrackerApp.Services.Contracts;
 using GymTrackerApp.ViewModels.ViewModels;
 using GymTrackerApp.ViewModels.ViewModels.Exercise;
 using Microsoft.AspNetCore.Authorization;
@@ -8,32 +10,17 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GymTrackerApp.Controllers
 {
-    public class ExercisesController(ApplicationDbContext dbContext) 
+    public class ExercisesController(IExerciseService exerciseService) 
         : BaseController
     {
         [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var exercises = await dbContext
-                .Exercises
-                .Include(e => e.Muscle)
-                .AsNoTracking()
-                .Select(e => new ExerciseViewModel
-                {
-                    Id = e.Id,
-                    Name = e.Name,
-                    Description = e.Description,
-                    ImageUrl = e.ImageUrl,
-                    MuscleName = e.Muscle.Name,
-                    CreatorId = e.CreatorId
-                })
-                .OrderBy(e => e.Name)
-                .ToListAsync();
+            var exercises = await exerciseService.GetAllExercisesAsync();
 
             return View(exercises);
         }
-
 
         //Add
         [HttpGet]
@@ -41,7 +28,7 @@ namespace GymTrackerApp.Controllers
         {
             var model = new ExerciseFormViewModel
             {
-                Muscles = await GetMuscles()
+                Muscles = await exerciseService.GetMusclesAsync()
             };
 
             return View(model);
@@ -52,39 +39,27 @@ namespace GymTrackerApp.Controllers
         {
             if (!ModelState.IsValid)
             {
-                model.Muscles = await GetMuscles();
+                model.Muscles = await exerciseService.GetMusclesAsync();
                 return View(model);
             }
 
-            var existingExercise = await dbContext
-                .Exercises
-                .FirstOrDefaultAsync(e => e.Name.ToLower() == model.Name.ToLower());
+            var existingExercise = await exerciseService.GetExerciseByNameAsync(model.Name);
 
             if (existingExercise != null)
             {
                 ModelState.AddModelError(nameof(model.Name), "An exercise with this name already exists.");
-                model.Muscles = await GetMuscles();
+                model.Muscles = await exerciseService.GetMusclesAsync();
                 return View(model);
             }
 
-            var exercise = new Exercise
-            {
-                Name = model.Name,
-                Description = model.Description,
-                ImageUrl = model.ImageUrl,
-                MuscleId = dbContext.Muscles.FirstOrDefault(m => m.Id == model.MuscleId)?.Id ?? 0,
-                CreatorId = GetUserId()!
-            };
-
             try
             {
-                await dbContext.Exercises.AddAsync(exercise);
-                await dbContext.SaveChangesAsync();
+                await exerciseService.AddExerciseAsync(model,GetUserId()!);
             }
             catch (DbUpdateException)
             {
                 ModelState.AddModelError(string.Empty, "An error occurred while saving the exercise. Please try again.");
-                model.Muscles = await GetMuscles();
+                model.Muscles = await exerciseService.GetMusclesAsync();
                 return View(model);
             }
             return RedirectToAction(nameof(Index));
@@ -95,11 +70,7 @@ namespace GymTrackerApp.Controllers
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
-            var exercise = await dbContext
-                .Exercises
-                .Include(e => e.Muscle)
-                .AsNoTracking()
-                .FirstOrDefaultAsync(e => e.Id == id);
+            var exercise = await exerciseService.GetExerciseByIdAsyncWithMusclesIncluded(id);
 
             if (exercise == null)
                 return NotFound();
@@ -113,22 +84,18 @@ namespace GymTrackerApp.Controllers
                 MuscleName = exercise.Muscle.Name,
                 CreatorId = exercise.CreatorId
             };
+
             return View(model);
         }
-
 
         //Edit
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            var exercise = await dbContext
-                .Exercises
-                .Include(e => e.Muscle)
-                .FirstOrDefaultAsync(e => e.Id == id);
+            var exercise = await exerciseService.GetExerciseByIdAsyncWithMusclesIncluded(id);
 
-            var userId = GetUserId();
-             if (exercise?.CreatorId != userId)
-               return Unauthorized();
+            if (exercise?.CreatorId != GetUserId())
+                return Unauthorized();
 
             if (exercise == null)
                 return NotFound();
@@ -139,7 +106,7 @@ namespace GymTrackerApp.Controllers
                 Description = exercise.Description,
                 ImageUrl = exercise.ImageUrl,
                 MuscleId = exercise.MuscleId,
-                Muscles = await GetMuscles()
+                Muscles = await exerciseService.GetMusclesAsync()
             };
 
             return View(model);
@@ -151,16 +118,13 @@ namespace GymTrackerApp.Controllers
         {
             if (!ModelState.IsValid)
             {
-                model.Muscles = await GetMuscles();
+                model.Muscles = await exerciseService.GetMusclesAsync();
                 return View("Add", model);
             }
 
-            var exercise = await dbContext
-                .Exercises
-                .FirstOrDefaultAsync(e => e.Id == id);
+            var exercise = await exerciseService.GetExerciseByIdAsync(id);
 
-            var userId = GetUserId();
-            if (exercise?.CreatorId != userId)
+            if (exercise?.CreatorId != GetUserId())
                 return Unauthorized();
 
             if (exercise == null)
@@ -168,16 +132,12 @@ namespace GymTrackerApp.Controllers
 
             try
             {
-                exercise.Name = model.Name;
-                exercise.Description = model.Description;
-                exercise.ImageUrl = model.ImageUrl;
-                exercise.MuscleId = dbContext.Muscles.FirstOrDefault(m => m.Id == model.MuscleId)?.Id ?? 0;
-                await dbContext.SaveChangesAsync();
+                await exerciseService.EditExerciseAsync(id, model);
             }
             catch (DbUpdateException)
             {
                 ModelState.AddModelError(string.Empty, "An error occurred while saving the exercise. Please try again.");
-                model.Muscles = await GetMuscles();
+                model.Muscles = await exerciseService.GetMusclesAsync();
                 return View(model);
             }
 
@@ -188,44 +148,25 @@ namespace GymTrackerApp.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
-            var exercise = await dbContext
-                .Exercises
-                .FindAsync(id);
+            var exercise = await exerciseService.GetExerciseByIdAsync(id);
 
             if (exercise == null)
                 return NotFound();
 
-            var userId = GetUserId();
-            if (exercise.CreatorId != userId)
+            if (exercise.CreatorId != GetUserId())
                 return Unauthorized();
 
             try
             {
-                dbContext.Exercises.Remove(exercise);
-                await dbContext.SaveChangesAsync();
+                await exerciseService.DeleteExerciseAsync(id);
             }
             catch (DbUpdateException)
             {
-                ModelState.AddModelError(string.Empty, "An error occurred while deleting the exercise. Please try again.");
+                TempData["ErrorMessage"] = "Cannot delete this exercise because it is part of a workout. Remove it from all workouts first.";
                 return RedirectToAction(nameof(Details), new { id });
             }
 
             return RedirectToAction(nameof(Index));
-        }
-
-        //Helper method
-        private async Task<IEnumerable<MuscleViewModel>> GetMuscles()
-        {
-            return await dbContext
-                .Muscles
-                .AsNoTracking()
-                .Select(m => new MuscleViewModel
-                {
-                    Id = m.Id,
-                    Name = m.Name
-                })
-                .OrderBy(m => m.Name)
-                .ToListAsync();
         }
     }
 }
