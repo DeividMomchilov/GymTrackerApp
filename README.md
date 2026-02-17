@@ -42,7 +42,7 @@ The solution follows a modular **N-Tier Architecture** to separate concerns and 
 * **GymTrackerApp.Common:** Holds global constants and validation rules.
 
 ### **2. Tech Stack**
-* **Framework:** ASP.NET Core MVC (.NET 8/9)
+* **Framework:** ASP.NET Core MVC (.NET 10)
 * **Database:** Microsoft SQL Server
 * **ORM:** Entity Framework Core (Code-First Approach)
 * **Front-End:**
