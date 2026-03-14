@@ -11,16 +11,20 @@ namespace GymTrackerApp.Controllers
     public class MusclesController(IMuscleService muscleService) : BaseController
     {
         [HttpGet]
-        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var muscles = await muscleService.GetAllMusclesAsync();
 
-            return View(muscles);
+            List<MuscleViewModel> muscleViewModels = muscles.Select(m => new MuscleViewModel
+            {
+                Id = m.Id,
+                Name = m.Name
+            }).ToList();
+
+            return View(muscleViewModels);
         }
 
         [HttpGet]
-        [AllowAnonymous]
         public async Task<IActionResult> Details(int id)
         {
             var muscle = await muscleService.GetMuscleByIdAsync(id);

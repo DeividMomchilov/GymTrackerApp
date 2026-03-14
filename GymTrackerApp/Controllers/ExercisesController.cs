@@ -13,7 +13,6 @@ namespace GymTrackerApp.Controllers
     public class ExercisesController(IExerciseService exerciseService) 
         : BaseController
     {
-        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> Index()
         {
