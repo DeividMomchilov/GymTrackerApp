@@ -3,6 +3,7 @@ using GymTrackerApp.Data.Models;
 using GymTrackerApp.Services.Contracts;
 using GymTrackerApp.ViewModels.ViewModels;
 using GymTrackerApp.ViewModels.ViewModels.Exercise;
+using GymTrackerApp.ViewModels.ViewModels.Muscle;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
