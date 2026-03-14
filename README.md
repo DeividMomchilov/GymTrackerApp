@@ -1,6 +1,6 @@
 # 🏋️ GymTrackerApp
 
-![.NET Version](https://img.shields.io/badge/.NET-8.0-purple)
+![.NET Version](https://img.shields.io/badge/.NET-10.0-purple)
 ![License](https://img.shields.io/badge/License-MIT-blue)
 ![Status](https://img.shields.io/badge/Status-Completed-green)
 
@@ -34,8 +34,8 @@ This project was developed as a submission for the **ASP.NET Fundamentals** cour
 The solution follows a modular **N-Tier Architecture** to separate concerns and ensure maintainability:
 
 ### **1. Architecture Overview**
-* **GymTrackerApp (Web Layer):** Contains Controllers (`WorkoutsController`, `ExercisesController`), Views (Razor Pages), and the Dependency Injection container (`Program.cs`).
-* **GymTrackerApp.Services:** Contains the business logic layer (`WorkoutService`, `ExerciseService`) implementing Interfaces to keep Controllers "skinny."
+* **GymTrackerApp (Web Layer):** Contains Controllers (`WorkoutsController`, `ExercisesController`, `MuscleController`), Views (Razor Pages), and the Dependency Injection container (`Program.cs`).
+* **GymTrackerApp.Services:** Contains the business logic layer (`WorkoutService`, `ExerciseService`, `MuscleService`) implementing Interfaces to keep Controllers "skinny."
 * **GymTrackerApp.Data:** Handles the Database Context (`ApplicationDbContext`) and Entity Configurations.
 * **GymTrackerApp.Data.Models:** Defines the database entities (`Workout`, `Exercise`, `Muscle`, `WorkoutExercise`).
 * **GymTrackerApp.ViewModels:** Defines ViewModels for data transfer between Views and Controllers, including validation attributes.
