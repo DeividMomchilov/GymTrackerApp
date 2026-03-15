@@ -8,7 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace GymTrackerApp.Services
+namespace GymTrackerApp.Services.Services
 {
     public class WorkoutService(ApplicationDbContext dbContext) : IWorkoutService
     {

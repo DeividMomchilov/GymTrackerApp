@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace GymTrackerApp.Services
+namespace GymTrackerApp.Services.Services
 {
     public class MuscleService(ApplicationDbContext dbContext) : IMuscleService
     {
