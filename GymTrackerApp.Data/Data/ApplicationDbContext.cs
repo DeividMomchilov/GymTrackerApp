@@ -17,5 +17,6 @@ namespace GymTrackerApp.Data
         public virtual DbSet<Muscle> Muscles { get; set; } 
         public virtual DbSet<Workout> Workouts { get; set; }
         public virtual DbSet<WorkoutExercise> WorkoutExercises { get; set; }
+        public virtual DbSet<WorkoutSession> WorkoutSessions { get; set; }
     }
 }
