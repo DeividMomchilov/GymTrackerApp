@@ -1,6 +1,6 @@
 using GymTrackerApp.Data;
-using GymTrackerApp.Services;
 using GymTrackerApp.Services.Contracts;
+using GymTrackerApp.Services.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,6 +17,7 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddScoped<IExerciseService, ExerciseService>();
 builder.Services.AddScoped<IWorkoutService, WorkoutService>();
 builder.Services.AddScoped<IMuscleService, MuscleService>();
+builder.Services.AddScoped<ISessionService, SessionService>();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
