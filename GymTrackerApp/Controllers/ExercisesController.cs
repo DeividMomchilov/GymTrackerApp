@@ -15,14 +15,15 @@ namespace GymTrackerApp.Controllers
     {
         public const int PageSize = 9;
         [HttpGet]
-        public async Task<IActionResult> Index(int page = 1)
+        public async Task<IActionResult> Index(int page = 1,string search = "")
         {
-            var exercises = await exerciseService.GetExercisesPaginatedAsync(page, PageSize);
-            int totalCount = await exerciseService.GetTotalExercisesCountAsync();
+            var exercises = await exerciseService.GetExercisesPaginatedAndFilterdAsync(page, PageSize,search);
+            int totalCount = await exerciseService.GetTotalExercisesCountAsync(search);
             int totalPages = (int)Math.Ceiling((double)totalCount / PageSize);
 
             ViewBag.CurrentPage = page;
             ViewBag.TotalPages = totalPages;
+            ViewBag.Search = search;
 
             return View(exercises);
         }

@@ -48,15 +48,18 @@ namespace GymTrackerApp.Services.Services
             await dbContext.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<ExerciseViewModel>> GetExercisesPaginatedAsync(int page, int pageSize)
+        public async Task<IEnumerable<ExerciseViewModel>> GetExercisesPaginatedAndFilterdAsync(int page, int pageSize,string search)
         {           
             int recordsToSkip = (page - 1) * pageSize;
 
-            return await dbContext
-                .Exercises
-                .Include(e => e.Muscle)
-                .AsNoTracking()
+            var query = dbContext.Exercises.AsNoTracking();
+               
+            if(!string.IsNullOrWhiteSpace(search))
+                query = query.Where(e => e.Name.ToLower().Contains(search.ToLower()));
+
+            return await query
                 .OrderBy(e => e.Name)
+                .Where(e => string.IsNullOrEmpty(search) || e.Name.ToLower().Contains(search.ToLower()))
                 .Skip(recordsToSkip)
                 .Take(pageSize)          
                 .Select(e => new ExerciseViewModel
@@ -113,7 +116,14 @@ namespace GymTrackerApp.Services.Services
                 .ToListAsync();
         }
 
-        public async Task<int> GetTotalExercisesCountAsync()
-            => await dbContext.Exercises.CountAsync();
+        public async Task<int> GetTotalExercisesCountAsync(string search)
+        {
+            var query = dbContext.Exercises.AsNoTracking();
+
+            if (!string.IsNullOrWhiteSpace(search))
+                query = query.Where(e => e.Name.Contains(search));
+
+            return await query.CountAsync();
+        }
     }
 }

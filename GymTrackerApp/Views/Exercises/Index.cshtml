@@ -27,6 +27,25 @@
 }
 else
 {
+    <form method="get" asp-action="Index" class="mb-4">
+        <div class="input-group shadow-sm">
+            <span class="input-group-text bg-dark text-info border-secondary">
+                <i class="bi bi-search"></i>
+            </span>
+            <input type="text"
+                   name="search"
+                   value="@ViewBag.Search"
+                   class="form-control bg-dark text-white border-secondary"
+                   placeholder="Search exercises by name..." />
+
+            <button type="submit" class="btn btn-info fw-bold">Search</button>
+
+            @if (!string.IsNullOrEmpty(ViewBag.Search))
+            {
+                <a asp-action="Index" class="btn btn-outline-secondary">Clear</a>
+            }
+        </div>
+    </form>
     <div class="row row-cols-1 row-cols-md-3 g-4">
         @foreach (var exercise in Model)
         {
@@ -87,9 +106,10 @@ else
             <ul class="pagination justify-content-center">
                 
                 <li class="page-item @(currentPage == 1 ? "disabled" : "")">
-                    <a class="page-link bg-dark text-info border-secondary" 
-                       asp-action="Index" 
-                       asp-route-page="@(currentPage - 1)">
+                    <a class="page-link bg-dark text-info border-secondary"
+                       asp-action="Index"
+                       asp-route-page="@(currentPage - 1)"
+                       asp-route-search="@ViewBag.Search">
                         <i class="bi bi-chevron-left"></i> Previous
                     </a>
                 </li>
