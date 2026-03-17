@@ -13,7 +13,8 @@ namespace GymTrackerApp.Controllers
     public class ExercisesController(IExerciseService exerciseService) 
         : BaseController
     {
-        public const int PageSize = 9;
+        private const int PageSize = 9;
+
         [HttpGet]
         public async Task<IActionResult> Index(int page = 1,string search = "")
         {

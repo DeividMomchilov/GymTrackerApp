@@ -5,10 +5,17 @@ namespace GymTrackerApp.Controllers
 {
     public class SessionsController(ISessionService sessionService) : BaseController
     {
+        private const int PageSize = 15;
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1, string search = "")
         {
-            var sessions = await sessionService.LogUserSessionsAsync(GetUserId()!);
+            int totalCount = await sessionService.GetTotalSessionsCountAsync(GetUserId()!, search);
+            var sessions = await sessionService.GetSessionsAsync(GetUserId()!,page,PageSize,search);
+            int totalPages = (int)Math.Ceiling((double)totalCount / PageSize);
+
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPages = totalPages;
+            ViewBag.Search = search;
 
             return View(sessions);
         }

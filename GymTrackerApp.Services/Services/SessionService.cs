@@ -11,12 +11,21 @@ namespace GymTrackerApp.Services.Services
 {
     public class SessionService(ApplicationDbContext dbContext) : ISessionService
     {
-        public async Task<IEnumerable<WorkoutSessionViewModel>> LogUserSessionsAsync(string userId)
+        public async Task<IEnumerable<WorkoutSessionViewModel>> GetSessionsAsync(string userId, int page, int pageSize, string search)
         {
-            return await dbContext.WorkoutSessions
+            int recordsToSkip = (page - 1) * pageSize;
+
+            var sessionsQuery = dbContext.WorkoutSessions
                 .Include(ws => ws.Workout)
-                .Where(ws => ws.UserId == userId)
+                .Where(ws => ws.UserId == userId);
+
+            if (!string.IsNullOrWhiteSpace(search))
+                sessionsQuery = sessionsQuery.Where(ws => ws.Workout.Title.ToLower().Contains(search.ToLower()));
+
+            return await sessionsQuery
                 .OrderByDescending(ws => ws.DateCompleted)
+                .Skip(recordsToSkip)
+                .Take(pageSize)
                 .Select(ws => new WorkoutSessionViewModel
                 {
                     Id = ws.Id,
@@ -41,5 +50,18 @@ namespace GymTrackerApp.Services.Services
             await dbContext.WorkoutSessions.AddAsync(session);
             await dbContext.SaveChangesAsync();
         }
+
+        public Task<int> GetTotalSessionsCountAsync(string userId, string search)
+        {
+            var sessionsQuery = dbContext.WorkoutSessions
+                .Include(ws => ws.Workout)
+                .Where(ws => ws.UserId == userId);
+
+            if (!string.IsNullOrWhiteSpace(search))
+                sessionsQuery = sessionsQuery.Where(ws => ws.Workout.Title.ToLower().Contains(search.ToLower()));
+
+            return sessionsQuery.CountAsync();
+
+        }       
     }
 }

@@ -59,7 +59,6 @@ namespace GymTrackerApp.Services.Services
 
             return await query
                 .OrderBy(e => e.Name)
-                .Where(e => string.IsNullOrEmpty(search) || e.Name.ToLower().Contains(search.ToLower()))
                 .Skip(recordsToSkip)
                 .Take(pageSize)          
                 .Select(e => new ExerciseViewModel

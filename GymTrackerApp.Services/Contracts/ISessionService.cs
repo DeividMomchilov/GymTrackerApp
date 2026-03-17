@@ -9,6 +9,8 @@ namespace GymTrackerApp.Services.Contracts
     {
         public Task LogSessionAsync(int workoutId, string userId, int duration);
 
-        public Task <IEnumerable<WorkoutSessionViewModel>> LogUserSessionsAsync(string userId);
+        public Task <IEnumerable<WorkoutSessionViewModel>> GetSessionsAsync(string userId,int page, int PageSize, string search);
+
+        public Task<int> GetTotalSessionsCountAsync(string userId, string search);
     }
 }
