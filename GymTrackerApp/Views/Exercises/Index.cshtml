@@ -77,4 +77,44 @@ else
             </div>
         }
     </div>
+
+    int currentPage = ViewBag.CurrentPage ?? 1;
+    int totalPages = ViewBag.TotalPages ?? 1;
+    
+    @if (totalPages > 1)
+    {
+        <nav aria-label="Exercise library pagination" class="mt-5">
+            <ul class="pagination justify-content-center">
+                
+                <li class="page-item @(currentPage == 1 ? "disabled" : "")">
+                    <a class="page-link bg-dark text-info border-secondary" 
+                       asp-action="Index" 
+                       asp-route-page="@(currentPage - 1)">
+                        <i class="bi bi-chevron-left"></i> Previous
+                    </a>
+                </li>
+
+                @for (int i = 1; i <= totalPages; i++)
+                {
+                    <li class="page-item @(currentPage == i ? "active" : "")">
+                        <a class="page-link @(currentPage == i ? "bg-info text-dark border-info" : "bg-dark text-info border-secondary")" 
+                           asp-action="Index" 
+                           asp-route-page="@i">@i</a>
+                    </li>
+                }
+
+                <li class="page-item @(currentPage == totalPages ? "disabled" : "")">
+                    <a class="page-link bg-dark text-info border-secondary" 
+                       asp-action="Index" 
+                       asp-route-page="@(currentPage + 1)">
+                        Next <i class="bi bi-chevron-right"></i>
+                    </a>
+                </li>
+            </ul>
+            
+            <div class="text-center text-white-50 mt-2 small">
+                Page @currentPage of @totalPages
+            </div>
+        </nav>
+    }
 }

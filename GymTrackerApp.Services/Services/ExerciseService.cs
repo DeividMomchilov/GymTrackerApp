@@ -48,12 +48,17 @@ namespace GymTrackerApp.Services.Services
             await dbContext.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<ExerciseViewModel>> GetAllExercisesAsync()
-        {
+        public async Task<IEnumerable<ExerciseViewModel>> GetExercisesPaginatedAsync(int page, int pageSize)
+        {           
+            int recordsToSkip = (page - 1) * pageSize;
+
             return await dbContext
                 .Exercises
                 .Include(e => e.Muscle)
                 .AsNoTracking()
+                .OrderBy(e => e.Name)
+                .Skip(recordsToSkip)
+                .Take(pageSize)          
                 .Select(e => new ExerciseViewModel
                 {
                     Id = e.Id,
@@ -63,7 +68,6 @@ namespace GymTrackerApp.Services.Services
                     MuscleName = e.Muscle.Name,
                     CreatorId = e.CreatorId
                 })
-                .OrderBy(e => e.Name)
                 .ToListAsync();
         }
 
@@ -108,5 +112,8 @@ namespace GymTrackerApp.Services.Services
                 .OrderBy(m => m.Name)
                 .ToListAsync();
         }
+
+        public async Task<int> GetTotalExercisesCountAsync()
+            => await dbContext.Exercises.CountAsync();
     }
 }

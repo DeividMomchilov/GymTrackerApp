@@ -10,7 +10,9 @@ namespace GymTrackerApp.Services.Contracts
 {
     public interface IExerciseService
     {
-        public Task<IEnumerable<ExerciseViewModel>> GetAllExercisesAsync();
+        public Task<IEnumerable<ExerciseViewModel>> GetExercisesPaginatedAsync(int page, int PageSize);
+
+        public Task<int> GetTotalExercisesCountAsync();
 
         public Task<Exercise> GetExerciseByIdAsync(int id);
 

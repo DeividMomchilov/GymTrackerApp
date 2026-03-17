@@ -13,10 +13,16 @@ namespace GymTrackerApp.Controllers
     public class ExercisesController(IExerciseService exerciseService) 
         : BaseController
     {
+        public const int PageSize = 9;
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1)
         {
-            var exercises = await exerciseService.GetAllExercisesAsync();
+            var exercises = await exerciseService.GetExercisesPaginatedAsync(page, PageSize);
+            int totalCount = await exerciseService.GetTotalExercisesCountAsync();
+            int totalPages = (int)Math.Ceiling((double)totalCount / PageSize);
+
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPages = totalPages;
 
             return View(exercises);
         }

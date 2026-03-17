@@ -40,7 +40,7 @@ namespace GymTrackerApp.Controllers
 
             if (existingWorkout != null)
             {
-                ModelState.AddModelError(nameof(model.Title), "You already have a workout with this title.");
+                TempData["ErrorMessage"] = "You already have a workout with this title. Please choose a different title.";
                 return View(model);
             }
 
