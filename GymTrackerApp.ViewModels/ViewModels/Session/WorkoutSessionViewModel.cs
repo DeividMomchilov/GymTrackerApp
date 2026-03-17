@@ -9,6 +9,7 @@ namespace GymTrackerApp.ViewModels.ViewModels.Session
         public int Id { get; set; }
         public string WorkoutTitle { get; set; } = null!;
         public DateTime DateCompleted { get; set; }
+
         public int DurationInMinutes { get; set; }
     }
 }

@@ -1,0 +1,16 @@
+﻿@{
+    ViewData["Title"] = "500 - Server Error";
+}
+
+<div class="container d-flex flex-column justify-content-center align-items-center mt-5 text-center text-white" style="min-height: 60vh;">
+    <h1 class="display-1 fw-bolder text-danger mb-0">
+        <i class="bi bi-exclamation-octagon-fill"></i> 500
+    </h1>
+    <h2 class="mb-4 fw-bold">Ouch! Our servers pulled a muscle.</h2>
+    <p class="lead text-white-50 mb-5" style="max-width: 600px;">
+        Something went wrong on our end and we couldn't process your request. Our developers are spotting the server right now.
+    </p>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-outline-light btn-lg">
+        <i class="bi bi-arrow-left"></i> Retreat to Safety
+    </a>
+</div>

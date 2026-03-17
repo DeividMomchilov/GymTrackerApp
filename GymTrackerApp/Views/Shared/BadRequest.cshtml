@@ -1,0 +1,17 @@
+﻿@{
+    ViewData["Title"] = "400 - Bad Request";
+}
+
+<div class="container d-flex flex-column justify-content-center align-items-center mt-5 text-center text-white" style="min-height: 60vh;">
+    <h1 class="display-1 fw-bolder text-warning mb-0">
+        <i class="bi bi-exclamation-triangle-fill"></i> 400
+    </h1>
+    <h2 class="mb-4 fw-bold">Bad Form! (Bad Request)</h2>
+    <p class="lead text-white-50 mb-5" style="max-width: 600px;">
+        We couldn't process your request. It looks like the data sent to our servers was invalid or corrupted. Please check your inputs and try again.
+    </p>
+
+    <a asp-controller="Home" asp-action="Index" class="btn btn-warning btn-lg shadow-sm text-dark fw-bold">
+        <i class="bi bi-arrow-counterclockwise"></i> Try Again
+    </a>
+</div>
