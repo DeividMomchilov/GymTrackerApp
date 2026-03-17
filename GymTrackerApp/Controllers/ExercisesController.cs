@@ -54,10 +54,11 @@ namespace GymTrackerApp.Controllers
             try
             {
                 await exerciseService.AddExerciseAsync(model,GetUserId()!);
+                TempData["SuccessMessage"] = "Exercise added successfully.";
             }
             catch (DbUpdateException)
             {
-                ModelState.AddModelError(string.Empty, "An error occurred while saving the exercise. Please try again.");
+                TempData["ErrorMessage"] = "An error occurred while adding the exercise. Please try again.";
                 model.Muscles = await exerciseService.GetMusclesAsync();
                 return View(model);
             }
@@ -132,10 +133,11 @@ namespace GymTrackerApp.Controllers
             try
             {
                 await exerciseService.EditExerciseAsync(id, model);
+                TempData["SuccessMessage"] = "Exercise updated successfully.";
             }
             catch (DbUpdateException)
             {
-                ModelState.AddModelError(string.Empty, "An error occurred while saving the exercise. Please try again.");
+                TempData["ErrorMessage"] = "An error occurred while updating the exercise. Please try again.";
                 model.Muscles = await exerciseService.GetMusclesAsync();
                 return View(model);
             }
@@ -158,6 +160,7 @@ namespace GymTrackerApp.Controllers
             try
             {
                 await exerciseService.DeleteExerciseAsync(id);
+                TempData["SuccessMessage"] = "Exercise deleted successfully.";
             }
             catch (DbUpdateException)
             {

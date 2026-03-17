@@ -47,10 +47,11 @@ namespace GymTrackerApp.Controllers
             try
             {
                 await workoutService.CreateWorkoutAsync(model, GetUserId()!);
+                TempData["SuccessMessage"] = "Workout created successfully!";
             }
             catch (DbUpdateException)
             {
-                ModelState.AddModelError(string.Empty, "An error occurred while saving the workout. Please try again.");
+                TempData["ErrorMessage"] = "An error occurred while creating the workout. Please try again.";
                 return View(model);
             }
             return RedirectToAction(nameof(Index));
@@ -65,7 +66,7 @@ namespace GymTrackerApp.Controllers
 
             if (workout == null)
             {
-                ModelState.AddModelError(string.Empty, "Workout not found.");
+                TempData["ErrorMessage"] = "Workout not found.";
                 return RedirectToAction(nameof(Index));
             }
 
@@ -89,7 +90,7 @@ namespace GymTrackerApp.Controllers
 
             if (workout == null)
             {
-                ModelState.AddModelError(string.Empty, "Workout not found.");
+                TempData["ErrorMessage"] = "Workout not found.";
                 return RedirectToAction(nameof(Index));
             }
 
@@ -99,7 +100,7 @@ namespace GymTrackerApp.Controllers
             }
             catch (DbUpdateException)
             {
-                ModelState.AddModelError(string.Empty, "An error occurred while updating the workout. Please try again.");
+                TempData["ErrorMessage"] = "An error occurred while updating the workout. Please try again.";
                 return View(model);
             }
 
@@ -115,7 +116,7 @@ namespace GymTrackerApp.Controllers
 
             if (workout == null)
             {
-                ModelState.AddModelError(string.Empty, "Workout not found.");
+                TempData["ErrorMessage"] = "Workout not found.";
                 return RedirectToAction(nameof(Index));
             }
 
@@ -125,7 +126,7 @@ namespace GymTrackerApp.Controllers
             }
             catch (DbUpdateException)
             {
-                ModelState.AddModelError(string.Empty, "An error occurred while deleting the workout. Please try again.");
+                TempData["ErrorMessage"] = "An error occurred while deleting the workout. Please try again.";
                 return RedirectToAction(nameof(Index));
             }
 
@@ -141,7 +142,7 @@ namespace GymTrackerApp.Controllers
 
             if (workout == null)
             {
-                ModelState.AddModelError(string.Empty, "Workout not found.");
+                TempData["ErrorMessage"] = "Workout not found.";
                 return RedirectToAction(nameof(Index));
             }
 
@@ -173,7 +174,7 @@ namespace GymTrackerApp.Controllers
 
             if (workout == null)
             {
-                ModelState.AddModelError(string.Empty, "Workout not found.");
+                TempData["ErrorMessage"] = "Workout not found.";
                 return RedirectToAction(nameof(Index));
             }
 
@@ -202,13 +203,13 @@ namespace GymTrackerApp.Controllers
 
             if (workout == null)
             {
-                ModelState.AddModelError(string.Empty, "Workout not found.");
+                TempData["ErrorMessage"] = "Workout not found.";
                 return RedirectToAction(nameof(Index));
             }
 
             if(workout.WorkoutExercises.Any(we => we.ExerciseId == model.ExerciseId))
             {
-                ModelState.AddModelError(string.Empty, "This exercise is already in your workout.");
+                TempData["ErrorMessage"] = "This exercise is already in your workout.";
                 model.AvailableExercises = await workoutService.GetExercisesAsync();
                 return View(model);
             }
@@ -219,7 +220,7 @@ namespace GymTrackerApp.Controllers
             }
             catch (DbUpdateException)
             {
-                ModelState.AddModelError(string.Empty, "An error occurred while adding the exercise to the workout. Please try again.");
+                TempData["ErrorMessage"] = "An error occurred while adding the exercise to the workout. Please try again.";
                 return RedirectToAction(nameof(Details), new { id = id });
             }
 
@@ -235,7 +236,7 @@ namespace GymTrackerApp.Controllers
 
             if (workout == null)
             {
-                ModelState.AddModelError(string.Empty, "Workout not found.");
+                TempData["ErrorMessage"] = "Workout not found.";
                 return RedirectToAction(nameof(Index));
             }
 
@@ -243,17 +244,18 @@ namespace GymTrackerApp.Controllers
 
             if (workoutExercise == null)
             {
-                ModelState.AddModelError(string.Empty, "Exercise not found in this workout.");
+                TempData["ErrorMessage"] = "Exercise not found in this workout.";
                 return RedirectToAction(nameof(Details), new { id = workoutId });
             }
 
             try
             {
                 await workoutService.RemoveExerciseFromWorkoutAsync(workoutExercise);
+                TempData["SuccessMessage"] = "Exercise removed from workout successfully!";
             }
             catch (DbUpdateException)
             {
-                ModelState.AddModelError(string.Empty, "An error occurred while removing the exercise from the workout. Please try again.");
+                TempData["ErrorMessage"] = "An error occurred while removing the exercise from the workout. Please try again.";
             }
             return RedirectToAction(nameof(Details), new { id = workoutId });
         }
