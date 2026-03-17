@@ -18,6 +18,7 @@ namespace GymTrackerApp.ViewModels.ViewModels
         public string Description { get; set; } = null!;
 
         [StringLength(ExerciseUrlMaxLength,MinimumLength = ExerciseImageUrlMinLength)]
+        [Url]
         public string? ImageUrl { get; set; }
 
         [Required]

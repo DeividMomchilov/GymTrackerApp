@@ -12,6 +12,7 @@ namespace GymTrackerApp.Data.Models
     {
         [Key]
         public int Id { get; set; }
+
         [Required]
         [MaxLength(ExerciseNameMaxLength)]
         public string Name { get; set; } = null!;

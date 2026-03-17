@@ -11,6 +11,7 @@ namespace GymTrackerApp.ViewModels.ViewModels.Workout
     {
         public int WorkoutId { get; set; }
 
+        [Required]
         public string WorkoutTitle { get; set; } = null!;
 
         [Required]

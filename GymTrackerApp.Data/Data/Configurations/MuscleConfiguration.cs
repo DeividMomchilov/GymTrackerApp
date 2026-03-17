@@ -13,7 +13,7 @@ namespace GymTrackerApp.Data.Data.Configurations
         {
             builder.HasData
                 (
-                    new Muscle { Id = 1, Name = "Chest" },
+                    new Muscle { Id = 1, Name = "Chest"},
                     new Muscle { Id = 2, Name = "Upper Back" },
                     new Muscle { Id = 3, Name = "Lower Back" },
                     new Muscle { Id = 4, Name = "Lats" },
@@ -28,8 +28,7 @@ namespace GymTrackerApp.Data.Data.Configurations
                     new Muscle { Id = 13, Name = "Quads" },
                     new Muscle { Id = 14, Name = "Hamstrings" },
                     new Muscle { Id = 15, Name = "Glutes" },
-                    new Muscle { Id = 16, Name = "Calves" },
-                    new Muscle { Id = 18, Name = "Full Body" }
+                    new Muscle { Id = 16, Name = "Calves" }
                 );
         }
     }

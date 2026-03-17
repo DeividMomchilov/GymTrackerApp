@@ -29,5 +29,6 @@ namespace GymTrackerApp.Common
 
         public const int RepsMinValue = 1;
         public const int RepsMaxValue = 1000;
+
     }
 }
