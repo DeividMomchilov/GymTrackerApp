@@ -57,7 +57,7 @@ namespace GymTrackerApp.Data.Migrations
 
                     b.HasIndex("MuscleId");
 
-                    b.ToTable("Exercises");
+                    b.ToTable("Exercises", (string)null);
 
                     b.HasData(
                         new
@@ -149,7 +149,7 @@ namespace GymTrackerApp.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Muscles");
+                    b.ToTable("Muscles", (string)null);
 
                     b.HasData(
                         new
@@ -265,7 +265,7 @@ namespace GymTrackerApp.Data.Migrations
 
                     b.HasIndex("CreatorId");
 
-                    b.ToTable("Workouts");
+                    b.ToTable("Workouts", (string)null);
                 });
 
             modelBuilder.Entity("GymTrackerApp.Data.Models.WorkoutExercise", b =>
@@ -289,7 +289,7 @@ namespace GymTrackerApp.Data.Migrations
 
                     b.HasIndex("ExerciseId");
 
-                    b.ToTable("WorkoutExercises");
+                    b.ToTable("WorkoutExercises", (string)null);
                 });
 
             modelBuilder.Entity("GymTrackerApp.Data.Models.WorkoutSession", b =>
@@ -317,7 +317,7 @@ namespace GymTrackerApp.Data.Migrations
 
                     b.HasIndex("WorkoutId");
 
-                    b.ToTable("WorkoutSessions");
+                    b.ToTable("WorkoutSessions", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

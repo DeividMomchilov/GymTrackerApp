@@ -28,5 +28,8 @@ namespace GymTrackerApp.Data.Models
 
         public virtual ICollection<WorkoutExercise> WorkoutExercises { get; set; }
             = new HashSet<WorkoutExercise>();
+
+        public virtual ICollection<WorkoutSession> WorkoutSessions { get; set; }
+            = new HashSet<WorkoutSession>();
     }
 }

@@ -15,8 +15,6 @@ namespace GymTrackerApp.Services.Services
     {
         public async Task AddExerciseAsync(ExerciseFormViewModel model, string userId)
         {
-            var existingExercise = await GetExerciseByNameAsync(model.Name);
-
             var exercise = new Exercise
             {
                 Name = model.Name,
