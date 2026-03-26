@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+using static GymTrackerApp.Common.EntityValidation;
+
 
 namespace GymTrackerApp.Data.Models
 {
@@ -23,6 +25,7 @@ namespace GymTrackerApp.Data.Models
         [Required]
         public DateTime DateCompleted { get; set; }
 
+        [Range(SessionDurationMinValue,SessionDurationMaxValue)]
         public int DurationInMinutes { get; set; }
     }
 }

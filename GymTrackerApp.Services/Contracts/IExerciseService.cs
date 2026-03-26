@@ -2,9 +2,6 @@
 using GymTrackerApp.ViewModels.ViewModels;
 using GymTrackerApp.ViewModels.ViewModels.Exercise;
 using GymTrackerApp.ViewModels.ViewModels.Muscle;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace GymTrackerApp.Services.Contracts
 {

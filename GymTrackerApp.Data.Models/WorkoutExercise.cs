@@ -30,6 +30,7 @@ namespace GymTrackerApp.Data.Models
         public int Reps { get; set; }
 
         [Required]
+        [Range(WeightMinValue,WeightMaxValue)]
         public double Weight { get; set; }
     }
 }

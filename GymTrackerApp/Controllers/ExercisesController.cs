@@ -46,6 +46,7 @@ namespace GymTrackerApp.Controllers
         {
             if (!ModelState.IsValid)
             {
+                TempData["ErrorMessage"] = "Please correct the errors in the form.";
                 model.Muscles = await exerciseService.GetMusclesAsync();
                 return View(model);
             }
@@ -54,7 +55,7 @@ namespace GymTrackerApp.Controllers
 
             if (existingExercise != null)
             {
-                ModelState.AddModelError(nameof(model.Name), "An exercise with this name already exists.");
+                TempData["ErrorMessage"] = "An exercise with this name already exists. Please choose a different name.";
                 model.Muscles = await exerciseService.GetMusclesAsync();
                 return View(model);
             }
@@ -126,6 +127,7 @@ namespace GymTrackerApp.Controllers
         {
             if (!ModelState.IsValid)
             {
+                TempData["ErrorMessage"] = "Please correct the errors in the form.";
                 model.Muscles = await exerciseService.GetMusclesAsync();
                 return View("Add", model);
             }

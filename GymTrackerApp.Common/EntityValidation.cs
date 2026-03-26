@@ -30,5 +30,10 @@ namespace GymTrackerApp.Common
         public const int RepsMinValue = 1;
         public const int RepsMaxValue = 1000;
 
+        public const double WeightMinValue = 0.0;
+        public const double WeightMaxValue = 500.0;
+
+        public const int SessionDurationMinValue = 1;
+        public const int SessionDurationMaxValue = 500;
     }
 }

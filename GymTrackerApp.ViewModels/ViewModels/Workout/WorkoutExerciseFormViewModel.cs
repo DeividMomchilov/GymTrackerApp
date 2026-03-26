@@ -29,6 +29,7 @@ namespace GymTrackerApp.ViewModels.ViewModels.Workout
         [Range(RepsMinValue, RepsMaxValue)]
         public int Reps { get; set; }
 
+        [Range(WeightMinValue,WeightMaxValue)]
         public double Weight { get; set; }
     }
 }
