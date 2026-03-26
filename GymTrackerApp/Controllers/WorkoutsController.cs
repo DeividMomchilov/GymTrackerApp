@@ -2,6 +2,7 @@
 using GymTrackerApp.Data.Models;
 using GymTrackerApp.Services.Contracts;
 using GymTrackerApp.ViewModels.ViewModels.Exercise;
+using GymTrackerApp.ViewModels.ViewModels.Session;
 using GymTrackerApp.ViewModels.ViewModels.Workout;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -10,7 +11,7 @@ using System.Collections;
 
 namespace GymTrackerApp.Controllers
 {
-    public class WorkoutsController(ApplicationDbContext dbContext, IWorkoutService workoutService)
+    public class WorkoutsController(IWorkoutService workoutService, ISessionService sessionService)
         : BaseController
     {
         [HttpGet]
@@ -138,13 +139,15 @@ namespace GymTrackerApp.Controllers
         public async Task<IActionResult> Details(int id)
         {
             var workout = await workoutService
-                .GetDetailedWorkoutAsync(id,GetUserId()!);
+                .GetDetailedWorkoutAsync(id, GetUserId()!);
 
             if (workout == null)
             {
                 TempData["ErrorMessage"] = "Workout not found.";
                 return RedirectToAction(nameof(Index));
             }
+
+            var latestSession = await sessionService.GetLatestSessionForWorkoutAsync(id, GetUserId()!);
 
             var model = new WorkoutDetailsViewModel
             {
@@ -159,7 +162,8 @@ namespace GymTrackerApp.Controllers
                     Sets = we.Sets,
                     Reps = we.Reps,
                     Weight = we.Weight,
-                }).ToList()
+                }).ToList(),
+                LatestSession = latestSession,
             };
 
             return View(model);
@@ -178,18 +182,13 @@ namespace GymTrackerApp.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
+            var existingExercises = await workoutService.GetExercisesAsync();
+
             var model = new WorkoutExerciseFormViewModel
             {
                 WorkoutId = workout.Id,
                 WorkoutTitle = workout.Title,
-                AvailableExercises = await dbContext.Exercises
-                    .Select(e => new ExerciseViewModel
-                    {
-                        Id = e.Id,
-                        Name = e.Name,
-                        MuscleName = e.Muscle.Name
-                    })
-                    .ToListAsync()
+                AvailableExercises = existingExercises
             };
 
             return View(model);

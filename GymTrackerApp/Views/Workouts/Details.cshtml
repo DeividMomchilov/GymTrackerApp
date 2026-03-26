@@ -1,6 +1,5 @@
 ﻿@using GymTrackerApp.ViewModels.ViewModels.Workout
 @model WorkoutDetailsViewModel
-
 @{
     ViewData["Title"] = Model.Title;
 }
@@ -10,6 +9,16 @@
         <div>
             <h1 class="text-info">@Model.Title</h1>
             <p class="lead text-white-50">@Model.Description</p>
+            @if (Model.LatestSession != null)
+            {
+                <div class="mt-2 text-white-50">
+                    <small>
+                        <strong>Last session:</strong>
+                        @Model.LatestSession.DateCompleted.ToString("g")
+                        — @Model.LatestSession.DurationInMinutes min
+                    </small>
+                </div>
+            }
         </div>
         <a asp-controller="Workouts" asp-action="AddExercise" asp-route-id="@Model.Id" class="btn btn-success btn-lg">
             <i class="bi bi-plus-circle"></i> Add Exercise
@@ -17,13 +26,13 @@
     </div>
 
     <form asp-controller="Sessions" asp-action="LogSession" method="post" class="d-inline">
-        <input type="hidden" name="workoutId" value="@Model.Id" />
+        <input type="hidden" name="WorkoutId" value="@Model.Id" />
 
         <div class="input-group input-group-lg shadow-sm" style="width: auto;">
             <span class="input-group-text bg-secondary text-light border-success border-opacity-25">
                 <i class="bi bi-stopwatch"></i>
             </span>
-            <input type="number" name="duration" class="form-control bg-dark text-white border-success border-opacity-25 text-center" value="60" min="1" max="300" style="max-width: 90px;" title="Duration in minutes" />
+            <input type="number" name="DurationInMinutes" class="form-control bg-dark text-white border-success border-opacity-25 text-center" value="60" min="1" max="500" style="max-width: 90px;" title="Duration in minutes" />
             <span class="input-group-text bg-secondary text-light border-success border-opacity-25">
                 min
             </span>

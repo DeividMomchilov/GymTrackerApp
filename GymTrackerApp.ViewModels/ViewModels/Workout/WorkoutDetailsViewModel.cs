@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GymTrackerApp.ViewModels.ViewModels.Session;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -14,5 +15,7 @@ namespace GymTrackerApp.ViewModels.ViewModels.Workout
         public string CreatorId { get; set; } = null!;
         public IEnumerable<WorkoutExerciseViewModel> Exercises { get; set; }
             = new List<WorkoutExerciseViewModel>();
+
+        public WorkoutSessionViewModel? LatestSession { get; set; }
     }
 }

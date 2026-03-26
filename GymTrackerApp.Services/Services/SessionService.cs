@@ -37,14 +37,14 @@ namespace GymTrackerApp.Services.Services
                 .ToListAsync();
         }
 
-        public async Task LogSessionAsync(int workoutId, string userId, int duration)
+        public async Task LogSessionAsync(WorkoutSessionFormViewModel model, string userId)
         {
             var session = new WorkoutSession
             {
-                WorkoutId = workoutId,
                 UserId = userId,
-                DurationInMinutes = duration,
-                DateCompleted = DateTime.UtcNow
+                WorkoutId = model.WorkoutId,
+                DateCompleted = DateTime.UtcNow,
+                DurationInMinutes = model.DurationInMinutes
             };
 
             await dbContext.WorkoutSessions.AddAsync(session);
@@ -62,6 +62,22 @@ namespace GymTrackerApp.Services.Services
 
             return sessionsQuery.CountAsync();
 
-        }       
+        }
+
+        public async Task<WorkoutSessionViewModel?> GetLatestSessionForWorkoutAsync(int workoutId, string userId)
+        {
+            return await dbContext.WorkoutSessions
+                .Where(ws => ws.WorkoutId == workoutId && ws.UserId == userId)
+                .OrderByDescending(ws => ws.DateCompleted)
+                .Select(ws => new WorkoutSessionViewModel
+                {
+                    Id = ws.Id,
+                    WorkoutTitle = ws.Workout.Title,
+                    DateCompleted = ws.DateCompleted,
+                    DurationInMinutes = ws.DurationInMinutes
+                })
+                .AsNoTracking()
+                .FirstOrDefaultAsync();
+        }
     }
 }
