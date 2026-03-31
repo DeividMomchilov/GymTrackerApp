@@ -1,7 +1,4 @@
-﻿using GymTrackerApp.Data;
-using GymTrackerApp.Data.Models;
-using GymTrackerApp.Services;
-using GymTrackerApp.Services.Contracts;
+﻿using GymTrackerApp.Services.Contracts;
 using GymTrackerApp.ViewModels.ViewModels;
 using GymTrackerApp.ViewModels.ViewModels.Exercise;
 using Microsoft.AspNetCore.Authorization;

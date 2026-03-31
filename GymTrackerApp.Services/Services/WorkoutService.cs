@@ -2,12 +2,8 @@
 using GymTrackerApp.Data.Models;
 using GymTrackerApp.Services.Contracts;
 using GymTrackerApp.ViewModels.ViewModels.Exercise;
-using GymTrackerApp.ViewModels.ViewModels.Session;
 using GymTrackerApp.ViewModels.ViewModels.Workout;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace GymTrackerApp.Services.Services
 {

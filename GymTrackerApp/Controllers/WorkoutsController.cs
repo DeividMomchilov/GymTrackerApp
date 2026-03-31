@@ -1,13 +1,9 @@
-﻿using GymTrackerApp.Data;
-using GymTrackerApp.Data.Models;
-using GymTrackerApp.Services.Contracts;
-using GymTrackerApp.ViewModels.ViewModels.Exercise;
-using GymTrackerApp.ViewModels.ViewModels.Session;
+﻿using GymTrackerApp.Services.Contracts;
 using GymTrackerApp.ViewModels.ViewModels.Workout;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Collections;
+
 
 namespace GymTrackerApp.Controllers
 {
