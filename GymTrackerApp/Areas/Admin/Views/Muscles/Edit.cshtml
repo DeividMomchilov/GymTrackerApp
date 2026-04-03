@@ -1,0 +1,59 @@
+﻿@using GymTrackerApp.ViewModels.ViewModels.Muscle
+@model MuscleFormViewModel
+
+@{
+    ViewData["Title"] = "Edit Muscle - " + Model.Name;
+}
+
+<div class="row justify-content-center mt-4 mb-5">
+    <div class="col-md-8 col-lg-6">
+        <div class="card bg-dark text-white border-warning shadow-lg">
+            
+            <div class="card-header bg-transparent border-warning text-center py-4">
+                <h2 class="mb-0"><i class="bi bi-pencil-square text-warning"></i> Edit Muscle Data</h2>
+                <p class="text-white-50 small mt-1 mb-0">Administrator Access</p>
+            </div>
+            
+            <div class="card-body p-4 p-md-5">
+                <form method="post">
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger shadow-sm border-danger" role="alert"></div>
+
+                    <div class="form-floating mb-4">
+                        <input asp-for="Name" class="form-control bg-secondary text-white border-dark shadow-sm fw-bold" placeholder="Name" />
+                        <label asp-for="Name" class="text-light">Muscle Group Name</label>
+                        <span asp-validation-for="Name" class="text-danger small fw-bold"></span>
+                    </div>
+
+                    <div class="form-floating mb-4">
+                        <input asp-for="ImageUrl" class="form-control bg-secondary text-white border-dark shadow-sm" placeholder="https://..." />
+                        <label asp-for="ImageUrl" class="text-light">Image URL (Optional)</label>
+                        <span asp-validation-for="ImageUrl" class="text-danger small fw-bold"></span>
+                        <div class="form-text text-white-50 mt-1">
+                            <i class="bi bi-info-circle"></i> Provide a direct link to an anatomical image.
+                        </div>
+                    </div>
+
+                    <div class="form-floating mb-5">
+                        <textarea asp-for="Description" class="form-control bg-secondary text-white border-dark shadow-sm" placeholder="Description..." style="height: 150px"></textarea>
+                        <label asp-for="Description" class="text-light">Anatomical Description (Optional)</label>
+                        <span asp-validation-for="Description" class="text-danger small fw-bold"></span>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center mt-2">
+                        <a asp-action="Index" class="btn btn-outline-light fw-bold px-4 py-2">
+                            <i class="bi bi-x-circle"></i> Cancel
+                        </a>
+                        <button type="submit" class="btn btn-warning fw-bold px-5 py-2 shadow">
+                            <i class="bi bi-save2"></i> Save Changes
+                        </button>
+                    </div>
+                </form>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

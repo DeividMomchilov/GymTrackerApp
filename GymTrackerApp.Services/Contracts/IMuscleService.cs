@@ -1,4 +1,5 @@
 ﻿using GymTrackerApp.Data.Models;
+using GymTrackerApp.ViewModels.ViewModels.Muscle;
 
 namespace GymTrackerApp.Services.Contracts
 {
@@ -9,5 +10,7 @@ namespace GymTrackerApp.Services.Contracts
         public Task<Muscle> GetMuscleByIdAsync(int id);
 
         public Task<IEnumerable<Exercise>> GetMusclesExercisesAsync(int id);
+
+        public Task EditMuscleAsync(int id,MuscleFormViewModel model);
     }
 }

@@ -54,17 +54,38 @@ namespace GymTrackerApp.Areas.Admin.Controllers
             if (muscle == null)
                 return NotFound();
 
-            var model = new MuscleDetailsViewModel
+            var model = new MuscleFormViewModel
             {
-                Id = muscle.Id,
-                Name = muscle.Name
+                Name = muscle.Name,
+                Description = muscle.Description,
+                ImageUrl = muscle.ImageUrl
             };
 
-            // TODO: Add a view for muscle edit
             return View(model);
         }
 
-        // TODO: Implement Edit POST action
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, MuscleFormViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                TempData["Error"] = "Invalid data. Please correct the errors and try again.";
+                return View(model);
+            }
 
+            var muscle = await muscleService.GetMuscleByIdAsync(id);
+
+            if (muscle == null)
+                return NotFound();
+
+            if (User.IsInRole("Admin"))
+            {
+                await muscleService.EditMuscleAsync(id, model);
+                TempData["Success"] = "Muscle updated successfully.";
+                return View(model);
+            }
+
+            return View(model);
+        }
     }
 }

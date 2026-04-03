@@ -40,6 +40,7 @@ namespace GymTrackerApp.Services.Services
             exercise.Description = model.Description;
             exercise.ImageUrl = model.ImageUrl;
             exercise.MuscleId = dbContext.Muscles.FirstOrDefault(m => m.Id == model.MuscleId)?.Id ?? 0;
+
             await dbContext.SaveChangesAsync();
         }
 
