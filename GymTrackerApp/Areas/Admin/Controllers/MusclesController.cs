@@ -61,7 +61,7 @@ namespace GymTrackerApp.Areas.Admin.Controllers
             };
 
             // TODO: Add a view for muscle edit
-            return Ok(model);
+            return View(model);
         }
 
         // TODO: Implement Edit POST action

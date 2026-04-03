@@ -9,6 +9,12 @@ namespace GymTrackerApp.Common
         public const int MuscleNameMinLength = 3;
         public const int MuscleNameMaxLength = 50;
 
+        public const int MuscleDescriptionMinLength = 20;
+        public const int MuscleDescriptionMaxLength = 200;
+
+        public const int MuscleImageUrlMinLength = 5;
+        public const int MuscleImageUrlMaxLength = 2048;
+
         public const int ExerciseNameMinLength = 3;
         public const int ExerciseNameMaxLength = 50;
 
