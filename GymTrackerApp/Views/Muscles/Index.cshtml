@@ -2,22 +2,34 @@
 @model IEnumerable<MuscleViewModel>
 
 @{
-    ViewData["Title"] = "Muscle Groups";
+    ViewData["Title"] = "Muscles Library";
 }
 
-<div class="d-flex justify-content-between align-items-center mb-4 text-white">
-    <h1><i class="bi bi-diagram-3-fill text-primary"></i> Muscle Groups</h1>
-</div>
+<h1 class="mb-4 text-white"><i class="bi bi-universal-access"></i> @ViewData["Title"]</h1>
 
-<div class="row row-cols-2 row-cols-md-4 g-4">
+<div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
     @foreach (var muscle in Model)
     {
         <div class="col">
-            <div class="card h-100 bg-dark text-white border-secondary shadow-sm text-center transition-hover">
-                <div class="card-body d-flex flex-column justify-content-center py-5">
-                    <h4 class="card-title text-info fw-bold mb-3">@muscle.Name</h4>
-                    <a asp-action="Details" asp-route-id="@muscle.Id" class="btn btn-outline-primary mt-auto stretched-link">
-                        View Exercises
+            <div class="card h-100 bg-dark text-white border-info shadow-sm hover-effect">
+                
+                @if (!string.IsNullOrEmpty(muscle.ImageUrl))
+                {
+                    <img src="@muscle.ImageUrl" class="card-img-top border-bottom border-info" alt="@muscle.Name" style="height: 200px; object-fit: cover;">
+                }
+                else
+                {
+                    <div class="card-img-top border-bottom border-info bg-secondary d-flex align-items-center justify-content-center" style="height: 200px;">
+                        <i class="bi bi-image text-white-50" style="font-size: 3rem;"></i>
+                    </div>
+                }
+
+                <div class="card-body text-center d-flex flex-column justify-content-center">
+                    <h4 class="card-title fw-bold m-0">@muscle.Name</h4>
+                </div>
+                <div class="card-footer bg-transparent border-top-0 pb-3 pt-0 text-center">
+                    <a asp-action="Details" asp-route-id="@muscle.Id" class="btn btn-outline-info w-100 fw-bold">
+                        View Exercises <i class="bi bi-arrow-right-circle"></i>
                     </a>
                 </div>
             </div>
@@ -25,15 +37,7 @@
     }
 </div>
 
-@section Scripts {
-    <style>
-        .transition-hover {
-            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-        }
-        .transition-hover:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 .5rem 1rem rgba(0,0,0,.5)!important;
-            border-color: #0dcaf0 !important; 
-        }
-    </style>
-}
+<style>
+    .hover-effect { transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; }
+    .hover-effect:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(13, 202, 240, 0.2) !important; }
+</style>

@@ -16,7 +16,9 @@ namespace GymTrackerApp.Controllers
             List<MuscleViewModel> muscleViewModels = muscles.Select(m => new MuscleViewModel
             {
                 Id = m.Id,
-                Name = m.Name
+                Name = m.Name,
+                Description = m.Description,
+                ImageUrl = m.ImageUrl
             }).ToList();
 
             return View(muscleViewModels);
@@ -32,6 +34,8 @@ namespace GymTrackerApp.Controllers
             {
                 Id = muscle.Id,
                 Name = muscle.Name,
+                Description = muscle.Description,
+                ImageUrl = muscle.ImageUrl,
                 Exercises = exercises.Select(e => new ExerciseViewModel
                 {
                     Id = e.Id,
