@@ -8,7 +8,7 @@ namespace GymTrackerApp.Data.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Exercise> builder)
         {
-           const string SeedUserId = "3026ea73-023b-4901-b63b-ca12cd6fe019";
+           const string SeedUserId = "11111111-2222-3333-4444-555555555555";
 
             builder.HasData(
                 new Exercise

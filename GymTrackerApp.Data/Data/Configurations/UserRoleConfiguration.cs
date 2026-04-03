@@ -14,7 +14,7 @@ namespace GymTrackerApp.Data.Data.Configurations
             builder.HasData(
                 new IdentityUserRole<string>
                 {
-                    UserId = "3026ea73-023b-4901-b63b-ca12cd6fe019",
+                    UserId = "11111111-2222-3333-4444-555555555555",
                     RoleId = "1"
                 }
             );

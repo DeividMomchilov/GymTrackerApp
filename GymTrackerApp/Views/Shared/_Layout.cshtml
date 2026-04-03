@@ -51,6 +51,18 @@
                                 <a class="nav-link text-light" asp-area="" asp-controller="Sessions" asp-action="Index">Sessions</a>
                             </li>
                         }
+                        @if (User.IsInRole("Administrator"))
+                        {                        
+                           <li class="nav-item dropdown">
+                                 <a class="nav-link dropdown-toggle text-warning fw-bold" href="#" id="adminDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                   <i class="bi bi-shield-lock-fill"></i> Admin Panel
+                                 </a>
+                               <ul class="dropdown-menu dropdown-menu-dark border-secondary shadow" aria-labelledby="adminDropdown">
+                                 <li><a class="dropdown-item text-info" asp-area="Admin" asp-controller="Exercises" asp-action="Add">Create Exercise</a></li>
+                                 <li><a class="dropdown-item text-info" asp-area="Admin" asp-controller="Muscles" asp-action="Index">Manage Muscles</a></li>
+                               </ul>
+                           </li>       
+                        }
                         </ul>
 
                     <partial name="_LoginPartial" />
