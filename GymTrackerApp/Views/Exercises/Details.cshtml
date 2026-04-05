@@ -45,7 +45,7 @@
                             <i class="bi bi-arrow-left"></i> Back to Library
                         </a>
 
-                        @if (currentUserId == Model.CreatorId)
+                        @if (currentUserId == Model.CreatorId || User.IsInRole("Admin"))
                         {
                             <div class="d-flex gap-2">
                                 <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">

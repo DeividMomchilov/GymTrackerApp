@@ -82,7 +82,7 @@ namespace GymTrackerApp.Areas.Admin.Controllers
             {
                 await muscleService.EditMuscleAsync(id, model);
                 TempData["Success"] = "Muscle updated successfully.";
-                return View(model);
+                return RedirectToAction("Index", "Muscles", new { area = "" });
             }
 
             return View(model);

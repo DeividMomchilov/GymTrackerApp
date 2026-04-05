@@ -103,7 +103,7 @@ namespace GymTrackerApp.Controllers
             if (exercise == null)
                 return NotFound();
 
-            if (exercise?.CreatorId != GetUserId() || !User.IsInRole("Admin"))
+            if (exercise?.CreatorId != GetUserId() && !User.IsInRole("Admin"))
                 return Unauthorized();
 
             var model = new ExerciseFormViewModel
@@ -134,7 +134,7 @@ namespace GymTrackerApp.Controllers
             if (exercise == null)
                 return NotFound();
 
-            if (exercise?.CreatorId != GetUserId() || !User.IsInRole("Admin"))
+            if (exercise?.CreatorId != GetUserId() && !User.IsInRole("Admin"))
                 return Unauthorized();
 
             try
@@ -161,7 +161,7 @@ namespace GymTrackerApp.Controllers
             if (exercise == null)
                 return NotFound();
 
-            if (exercise?.CreatorId != GetUserId() || !User.IsInRole("Admin"))
+            if (exercise?.CreatorId != GetUserId() && !User.IsInRole("Admin"))
                 return Unauthorized();
 
             try
