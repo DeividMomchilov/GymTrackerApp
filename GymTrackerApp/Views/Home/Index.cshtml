@@ -2,48 +2,78 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="p-5 mb-4 bg-secondary text-white rounded-3 shadow">
-    <div class="container-fluid py-5">
-        <h1 class="display-5 fw-bold">Welcome to GymTracker</h1>
-        <p class="col-md-8 fs-4">Your ultimate companion for tracking workouts, building muscle, and staying consistent.</p>
-
-        @if (User.Identity?.IsAuthenticated ?? false)
-        {
-            <div class="d-flex gap-2">
-                <a class="btn btn-dark btn-lg border-white" asp-controller="Workouts" asp-action="Index" role="button">
-                    <i class="bi bi-journal-text"></i> My Workouts
-                </a>
-                <a class="btn btn-outline-light btn-lg" asp-controller="Exercises" asp-action="Index" role="button">
-                    <i class="bi bi-collection"></i> Exercise Library
-                </a>              
-            </div>
-        }
-        else
-        {
-            <div class="d-flex gap-2">
-                <a class="btn btn-light btn-lg" asp-area="Identity" asp-page="/Account/Register" role="button">Join Now</a>
-                <a class="btn btn-outline-light btn-lg" asp-area="Identity" asp-page="/Account/Login" role="button">Login</a>
-            </div>
-        }
-    </div>
-</div>
-
-<div class="row align-items-md-stretch">
-    <div class="col-md-6 mb-3">
-        <div class="h-100 p-5 text-white bg-dark rounded-3 border border-secondary shadow-sm">
-            <h2><i class="bi bi-lightning-fill text-warning"></i> Build Your Program</h2>
-            <p>Create custom workout plans tailored to your goals. Mix and match exercises to create the perfect routine.</p>
+<div class="text-center hero-section p-5 mb-5 rounded-3 shadow-lg position-relative">
+    <i class="bi bi-activity position-absolute" style="font-size: 25rem; color: rgba(255,255,255,0.02); top: -10%; right: -5%; z-index: 0; pointer-events: none;"></i>
+    
+    <div class="position-relative py-5" style="z-index: 1;">
+        <h1 class="display-3 fw-bold text-white mb-3">
+            Welcome to <span class="text-info">GymTracker</span>
+        </h1>
+        <p class="lead text-white-50 mx-auto" style="max-width: 600px;">
+            The ultimate tool to build routines, track your sessions, and master your anatomy. Log your progress and crush your fitness goals.
+        </p>
+        
+        <div class="mt-5 gap-3 d-flex justify-content-center flex-wrap">
             @if (User.Identity?.IsAuthenticated ?? false)
             {
-                <a class="btn btn-outline-light" asp-controller="Workouts" asp-action="Create">Create Workout</a>
+                <a asp-controller="Workouts" asp-action="Index" class="btn btn-info btn-lg fw-bold pulse-button px-5 rounded-pill shadow">
+                    <i class="bi bi-play-fill"></i> Start Workout
+                </a>
+                <a asp-controller="Exercises" asp-action="Index" class="btn btn-outline-light btn-lg fw-bold px-5 rounded-pill">
+                    <i class="bi bi-search"></i> Browse Exercises
+                </a>
+            }
+            else
+            {
+                <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-info btn-lg fw-bold pulse-button px-5 rounded-pill shadow">
+                    <i class="bi bi-lightning-charge-fill"></i> Get Started Free
+                </a>
+                <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-outline-light btn-lg fw-bold px-5 rounded-pill">
+                    <i class="bi bi-box-arrow-in-right"></i> Log In
+                </a>
             }
         </div>
     </div>
-    <div class="col-md-6 mb-3">
-        <div class="h-100 p-5 text-white bg-dark rounded-3 border border-secondary shadow-sm">
-            <h2><i class="bi bi-search text-info"></i> Discover Exercises</h2>
-            <p>Browse our extensive library of exercises categorized by muscle group. Find the right movement for your gains.</p>
-            <a class="btn btn-outline-light" asp-controller="Exercises" asp-action="Index">Browse Library</a>
+</div>
+
+<div class="container px-4 py-3" id="features">
+    <div class="row g-4 py-4 row-cols-1 row-cols-lg-3">
+        
+        <div class="col">
+            <div class="feature-card h-100 p-4 text-center text-white d-flex flex-column align-items-center">
+                <div class="mb-3">
+                    <i class="bi bi-card-checklist feature-icon"></i>
+                </div>
+                <h3 class="fs-4 fw-bold">Custom Workouts</h3>
+                <p class="text-white-50 mb-0 mt-2">
+                    Design and organize your own workout routines. Combine your favorite exercises to create the perfect split.
+                </p>
+            </div>
         </div>
+
+        <div class="col">
+            <div class="feature-card h-100 p-4 text-center text-white d-flex flex-column align-items-center">
+                <div class="mb-3">
+                    <i class="bi bi-stopwatch feature-icon"></i>
+                </div>
+                <h3 class="fs-4 fw-bold">Session Tracking</h3>
+                <p class="text-white-50 mb-0 mt-2">
+                    Log your real-time workout sessions, track your duration, and monitor your consistency over time.
+                </p>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="feature-card h-100 p-4 text-center text-white d-flex flex-column align-items-center">
+                <div class="mb-3">
+                    <i class="bi bi-universal-access feature-icon"></i>
+                </div>
+                <h3 class="fs-4 fw-bold">Anatomy Insights</h3>
+                <p class="text-white-50 mb-0 mt-2">
+                    Browse a comprehensive library of exercises. Filter by muscle group and master the anatomy behind every lift.
+                </p>
+            </div>
+        </div>
+
     </div>
 </div>

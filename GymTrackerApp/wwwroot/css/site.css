@@ -4,51 +4,200 @@ html, body {
 }
 
 body {
-    background-color: #212529; /* Dark Bootstrap Color */
-    color: #f8f9fa; /* Light Text */
+    background-color: #212529; 
+    color: #f8f9fa; 
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 }
 
-/* Ensure footer sticks to bottom */
 .main-content {
     flex: 1;
 }
 
-/* Fix for links on dark background */
 a {
     text-decoration: none;
 }
 
-/* Footer styling */
 .footer {
     flex-shrink: 0;
-    background-color: #212529; /* Dark footer */
+    background-color: #212529; 
     color: #adb5bd;
 }
 
-    .footer a {
-        color: #fff;
-        text-decoration: none;
-    }
-
-        .footer a:hover {
-            color: #0d6efd; /* Primary blue on hover */
-            text-decoration: underline;
-        }
-
-/* Navbar Tweaks */
-.navbar-brand {
-    font-weight: 700;
-    letter-spacing: 0.5px;
+.footer a {
+    color: #fff;
+    text-decoration: none;
 }
 
-/* Card Hover Effect */
+.footer a:hover {
+    color: #0d6efd; 
+    text-decoration: underline;
+}
+
+.navbar-custom {
+    background-color: rgba(18, 20, 22, 0.95) !important; /* Deep dark with slight transparency */
+    backdrop-filter: blur(10px); /* Blurs the background when scrolling */
+    border-bottom: 1px solid #343a40 !important;
+}
+
+/* Gradient Brand Logo */
+.brand-text {
+    background: -webkit-linear-gradient(#0dcaf0, #0d6efd);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 800;
+    font-size: 1.5rem;
+    letter-spacing: -0.5px;
+}
+
+
+.nav-link-custom {
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem !important;
+    margin: 0 0.2rem;
+    color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.nav-link-custom:hover {
+    background-color: rgba(13, 202, 240, 0.1);
+    color: #0dcaf0 !important;
+    transform: translateY(-2px);
+}
+
+.navbar-brand {
+    transition: transform 0.3s ease;
+}
+
+.navbar-brand:hover {
+    transform: scale(1.05);
+}
+
 .card {
+  
     transition: transform 0.2s;
 }
+.card:hover {
+    transform: translateY(-5px);
+}
+.hero-section {
+    background: linear-gradient(135deg, #212529 0%, #121416 100%);
+    border-bottom: 3px solid #0dcaf0;
+    overflow: hidden;
+}
 
-    .card:hover {
-        transform: translateY(-5px);
+.feature-card {
+    transition: all 0.3s ease-in-out;
+    border-radius: 1rem;
+    background-color: #212529;
+    border: 1px solid #495057;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+    border-color: #0dcaf0;
+    box-shadow: 0 15px 30px rgba(13, 202, 240, 0.15);
+}
+
+.feature-icon {
+    font-size: 3.5rem;
+    background: -webkit-linear-gradient(#0dcaf0, #0d6efd);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: transform 0.4s ease;
+}
+
+.feature-card:hover .feature-icon {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.pulse-button {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(13, 202, 240, 0.7);
     }
+
+    70% {
+        box-shadow: 0 0 0 15px rgba(13, 202, 240, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(13, 202, 240, 0);
+    }
+}
+
+.text-gradient {
+    background: -webkit-linear-gradient(#0dcaf0, #0d6efd);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+
+.search-container {
+    transition: all 0.3s ease;
+    border-radius: 2rem;
+    overflow: hidden;
+}
+
+.search-container:focus-within {
+    box-shadow: 0 0 0 0.25rem rgba(13, 202, 240, 0.25);
+    border-color: #0dcaf0 !important;
+}
+
+.search-input {
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.exercise-card {
+    transition: all 0.3s ease-in-out;
+    border-radius: 1rem;
+    background-color: #212529;
+    border: 1px solid #495057;
+    overflow: hidden; 
+}
+
+.exercise-card:hover {
+    transform: translateY(-8px);
+    border-color: #0dcaf0;
+    box-shadow: 0 15px 30px rgba(13, 202, 240, 0.15);
+}
+
+.exercise-card-img-container {
+    overflow: hidden;
+    position: relative;
+    height: 200px;
+    border-bottom: 1px solid #495057;
+}
+
+.exercise-card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.exercise-card:hover .exercise-card-img {
+    transform: scale(1.08); 
+}
+
+
+.btn-hover-lift {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-hover-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.empty-state-dashed {
+    border: 2px dashed #495057;
+    border-radius: 1rem;
+    background-color: rgba(33, 37, 41, 0.5);
+}

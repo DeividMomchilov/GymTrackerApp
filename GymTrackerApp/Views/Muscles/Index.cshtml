@@ -5,39 +5,47 @@
     ViewData["Title"] = "Muscles Library";
 }
 
-<h1 class="mb-4 text-white"><i class="bi bi-universal-access"></i> @ViewData["Title"]</h1>
+<div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-5 border-bottom border-secondary pb-4 text-white gap-3">
+    <h1 class="fw-bold mb-0">
+        <i class="bi bi-universal-access text-info me-2"></i>
+        <span class="text-gradient">@ViewData["Title"]</span>
+    </h1>
+    <div class="text-white-50 fs-5">
+        Master your anatomy
+    </div>
+</div>
 
-<div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 mb-5">
     @foreach (var muscle in Model)
     {
         <div class="col">
-            <div class="card h-100 bg-dark text-white border-info shadow-sm hover-effect">
+            <div class="card h-100 exercise-card shadow bg-dark border-secondary">
                 
-                @if (!string.IsNullOrEmpty(muscle.ImageUrl))
-                {
-                    <img src="@muscle.ImageUrl" class="card-img-top border-bottom border-info" alt="@muscle.Name" style="height: 200px; object-fit: cover;">
-                }
-                else
-                {
-                    <div class="card-img-top border-bottom border-info bg-secondary d-flex align-items-center justify-content-center" style="height: 200px;">
-                        <i class="bi bi-image text-white-50" style="font-size: 3rem;"></i>
-                    </div>
-                }
-
-                <div class="card-body text-center d-flex flex-column justify-content-center">
-                    <h4 class="card-title fw-bold m-0">@muscle.Name</h4>
+                <div class="exercise-card-img-container bg-dark" style="height: 180px; border-bottom: 1px solid #343a40;">
+                    @if (!string.IsNullOrEmpty(muscle.ImageUrl))
+                    {
+                        <img src="@muscle.ImageUrl" class="exercise-card-img" alt="@muscle.Name">
+                    }
+                    else
+                    {
+                        <div class="exercise-card-img d-flex justify-content-center align-items-center bg-secondary text-white-50">
+                            <i class="bi bi-image" style="font-size: 3rem;"></i>
+                        </div>
+                    }
+                    
+                    <div class="position-absolute bottom-0 start-0 w-100 h-50" style="background: linear-gradient(to top, rgba(33,37,41,1), transparent); pointer-events: none;"></div>
                 </div>
-                <div class="card-footer bg-transparent border-top-0 pb-3 pt-0 text-center">
-                    <a asp-action="Details" asp-route-id="@muscle.Id" class="btn btn-outline-info w-100 fw-bold">
-                        View <i class="bi bi-arrow-right-circle"></i>
+
+                <div class="card-body text-center d-flex flex-column justify-content-center p-3 position-relative" style="z-index: 1;">
+                    <h4 class="card-title fw-bolder text-white mb-0 tracking-wide">@muscle.Name</h4>
+                </div>
+
+                <div class="card-footer bg-transparent border-top-0 p-3 pt-0 text-center">
+                    <a asp-action="Details" asp-route-id="@muscle.Id" class="btn btn-outline-info w-100 fw-bold rounded-3 btn-hover-lift d-flex justify-content-center align-items-center gap-2">
+                        Explore <i class="bi bi-arrow-right"></i>
                     </a>
                 </div>
             </div>
         </div>
     }
 </div>
-
-<style>
-    .hover-effect { transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; }
-    .hover-effect:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(13, 202, 240, 0.2) !important; }
-</style>

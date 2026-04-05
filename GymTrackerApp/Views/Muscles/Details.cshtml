@@ -2,83 +2,126 @@
 @model MuscleDetailsViewModel
 
 @{
-    ViewData["Title"] = Model.Name + " Details";
+    ViewData["Title"] = Model.Name + " - Details";
 }
 
-<div class="mb-4">
-    <a asp-action="Index" class="btn btn-outline-secondary fw-bold text-white">
-        <i class="bi bi-arrow-left"></i> Back to Muscles
-    </a>
-</div>
-
-<div class="row mb-5 align-items-center">
-    <div class="col-md-5 mb-4 mb-md-0">
-        @if (!string.IsNullOrEmpty(Model.ImageUrl))
-        {
-            <img src="@Model.ImageUrl" class="img-fluid rounded shadow-lg border border-info" alt="@Model.Name" style="max-height: 400px; width: 100%; object-fit: cover;" />
-        }
-        else
-        {
-            <div class="rounded shadow-lg border border-info bg-secondary d-flex align-items-center justify-content-center" style="height: 300px; width: 100%;">
-                <i class="bi bi-image text-white-50" style="font-size: 4rem;"></i>
-            </div>
-        }
-    </div>
+<div class="container mt-4 mb-5">
     
-    <div class="col-md-7 text-white">
-        <h1 class="fw-bold mb-3 text-info" style="font-size: 3rem;">@Model.Name</h1>
-        <div class="p-4 bg-dark rounded shadow-sm border border-secondary">
-            <h4 class="text-white-50 mb-3"><i class="bi bi-info-circle"></i> Anatomical Overview</h4>
-            @if (!string.IsNullOrEmpty(Model.Description))
-            {
-                <p class="fs-5 lh-base m-0">@Model.Description</p>
-            }
-            else
-            {
-                <p class="text-muted fst-italic m-0">No description provided for this muscle group.</p>
-            }
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-5 gap-3 border-bottom border-secondary pb-4">
+        <div>
+            <a asp-action="Index" class="btn btn-outline-secondary btn-lg btn-hover-lift rounded-pill px-5 fw-bold text-white shadow-sm">
+                <i class="bi bi-arrow-left me-2"></i> Back to Anatomy
+            </a>
         </div>
+        
         @if (User.IsInRole("Admin"))
         {
-            <a asp-area="Admin" asp-controller="Muscles" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning fw-bold mt-2">
-                <i class="bi bi-pencil-square"></i> Edit Muscle Data
-            </a>
-        }
-    </div>
-</div>
-
-<hr class="border-secondary mb-5" />
-
-<h2 class="text-white mb-4"><i class="bi bi-list-check"></i> Exercises Targeting @Model.Name</h2>
-
-@if (!Model.Exercises.Any())
-{
-    <div class="alert alert-secondary text-center">
-        <h4>No exercises found for @Model.Name.</h4>
-        <p>Be the first to add an exercise targeting this muscle group!</p>
-        <a asp-controller="Exercises" asp-action="Add" class="btn btn-info mt-2">Add New Exercise</a>
-    </div>
-}
-else
-{
-    <div class="row row-cols-1 row-cols-md-3 g-4">
-        @foreach (var exercise in Model.Exercises)
-        {
-            <div class="col">
-                <div class="card h-100 bg-dark text-white border-secondary shadow-sm">
-                    @if (!string.IsNullOrEmpty(exercise.ImageUrl))
-                    {
-                        <img src="@exercise.ImageUrl" class="card-img-top" alt="@exercise.Name" style="height: 200px; object-fit: cover;">
-                    }
-                    <div class="card-body">
-                        <h5 class="card-title fw-bold">@exercise.Name</h5>
-                        <p class="card-text text-white-50 text-truncate" style="max-height: 3rem;">@exercise.Description</p>
-                    </div>
-                    <div class="card-footer bg-transparent border-top-0 pb-3 pt-0">
-                        <a asp-controller="Exercises" asp-action="Details" asp-route-id="@exercise.Id" class="btn btn-outline-info w-100 fw-bold">View Details</a>
-                    </div>
-                </div>
+            <div>
+                <a asp-area="Admin" asp-controller="Muscles" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning btn-lg btn-hover-lift rounded-pill px-5 fw-bold shadow-sm">
+                    <i class="bi bi-pencil-square me-2"></i> Edit Muscle Data
+                </a>
             </div>
         }
     </div>
-}
+
+    <div class="row gx-5 align-items-start mb-5">
+        
+        <div class="col-lg-5 mb-4 mb-lg-0">
+            <div class="rounded-4 shadow-lg overflow-hidden border border-secondary bg-dark" style="height: 400px; width: 100%;">
+                @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                {
+                    <img src="@Model.ImageUrl" class="w-100 h-100" alt="@Model.Name" style="object-fit: cover; transition: transform 0.5s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" />
+                }
+                else
+                {
+                    <div class="d-flex flex-column justify-content-center align-items-center h-100 w-100 text-white-50" style="background: linear-gradient(135deg, #212529 0%, #121416 100%);">
+                        <i class="bi bi-image mb-3" style="font-size: 5rem; opacity: 0.5;"></i>
+                        <h4 class="fw-bold">No Image Provided</h4>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="col-lg-7">
+            
+            <h1 class="display-4 fw-bolder text-gradient mb-4" style="letter-spacing: -1px;">@Model.Name</h1>
+            
+            <div class="card bg-dark text-white border-secondary shadow-lg exercise-card">
+                <div class="card-header bg-transparent border-secondary p-4 d-flex align-items-center gap-3">
+                    <div class="bg-info rounded-circle d-flex justify-content-center align-items-center shadow-sm" style="width: 45px; height: 45px;">
+                        <i class="bi bi-info-circle fs-4 text-dark"></i>
+                    </div>
+                    <h4 class="mb-0 text-white fw-bold">Anatomical Overview</h4>
+                </div>
+                <div class="card-body p-4 p-md-5 bg-opacity-10" style="background-color: rgba(0,0,0,0.2);">
+                    @if (!string.IsNullOrEmpty(Model.Description))
+                    {
+                        <p class="fs-5 lh-lg text-light mb-0" style="white-space: pre-wrap; font-weight: 400;">@Model.Description</p>
+                    }
+                    else
+                    {
+                        <p class="text-white-50 fst-italic mb-0">No description provided for this muscle group.</p>
+                    }
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <h3 class="text-white fw-bold mb-4 mt-5 pt-3"><i class="bi bi-list-check text-info me-2"></i> Exercises Targeting @Model.Name</h3>
+
+    @if (!Model.Exercises.Any())
+    {
+        <div class="empty-state-dashed p-5 text-center text-white-50 mt-4 shadow-sm">
+            <i class="bi bi-collection-x mb-3 d-block text-secondary" style="font-size: 4rem;"></i>
+            <h3 class="text-white fw-bold">No exercises found for the @Model.Name.</h3>
+            <p class="lead mb-4">Be the first to add an exercise targeting this muscle group!</p>
+            @if (User.Identity?.IsAuthenticated ?? false)
+            {
+                <a asp-controller="Exercises" asp-action="Add" class="btn btn-info btn-lg rounded-pill px-5 fw-bold text-dark pulse-button btn-hover-lift shadow">
+                    <i class="bi bi-plus-lg me-1"></i> Add New Exercise
+                </a>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            @foreach (var exercise in Model.Exercises)
+            {
+                <div class="col">
+                    <div class="card h-100 exercise-card shadow bg-dark border-secondary">
+
+                        <div class="exercise-card-img-container bg-dark" style="height: 180px; border-bottom: 1px solid #343a40;">
+                            @if (!string.IsNullOrEmpty(exercise.ImageUrl))
+                            {
+                                <img src="@exercise.ImageUrl" class="exercise-card-img" alt="@exercise.Name">
+                            }
+                            else
+                            {
+                                <div class="exercise-card-img d-flex justify-content-center align-items-center bg-secondary text-white-50">
+                                    <i class="bi bi-image" style="font-size: 3rem;"></i>
+                                </div>
+                            }
+                            <div class="position-absolute bottom-0 start-0 w-100 h-50" style="background: linear-gradient(to top, rgba(33,37,41,1), transparent); pointer-events: none;"></div>
+                        </div>
+
+                        <div class="card-body p-4 position-relative" style="z-index: 1;">
+                            <h4 class="card-title text-white fw-bold mb-3">@exercise.Name</h4>
+                            <p class="card-text text-white-50 lh-lg mb-0" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                                @exercise.Description
+                            </p>
+                        </div>
+
+                        <div class="card-footer bg-transparent border-top-0 p-3 pt-0">
+                            <a asp-controller="Exercises" asp-action="Details" asp-route-id="@exercise.Id" class="btn btn-outline-info w-100 fw-bold rounded-3 btn-hover-lift d-flex justify-content-center align-items-center gap-2">
+                                <i class="bi bi-info-circle"></i> View Details
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
