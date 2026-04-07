@@ -17,7 +17,7 @@ namespace GymTrackerApp.Services.Services
                 Name = model.Name,
                 Description = model.Description,
                 ImageUrl = model.ImageUrl,
-                MuscleId = dbContext.Muscles.FirstOrDefault(m => m.Id == model.MuscleId)?.Id ?? 0,
+                MuscleId = model.MuscleId,
                 CreatorId = userId
             };
 
@@ -39,7 +39,7 @@ namespace GymTrackerApp.Services.Services
             exercise.Name = model.Name;
             exercise.Description = model.Description;
             exercise.ImageUrl = model.ImageUrl;
-            exercise.MuscleId = dbContext.Muscles.FirstOrDefault(m => m.Id == model.MuscleId)?.Id ?? 0;
+            exercise.MuscleId =  model.MuscleId;
 
             await dbContext.SaveChangesAsync();
         }
@@ -116,7 +116,7 @@ namespace GymTrackerApp.Services.Services
             var query = dbContext.Exercises.AsNoTracking();
 
             if (!string.IsNullOrWhiteSpace(search))
-                query = query.Where(e => e.Name.Contains(search));
+                query = query.Where(e => e.Name.ToLower().Contains(search.ToLower()));
 
             return await query.CountAsync();
         }
