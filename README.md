@@ -2,9 +2,17 @@
 
 ![.NET Version](https://img.shields.io/badge/.NET-10.0-purple)
 ![License](https://img.shields.io/badge/License-MIT-blue)
+![Deployment](https://img.shields.io/badge/Deployment-Azure-0078D4?logo=microsoftazure)
 ![Status](https://img.shields.io/badge/Status-Completed-green)
 
 **GymTrackerApp** is a robust ASP.NET Core MVC web application designed to help users track their fitness journey. It allows users to create personalized workout routines, manage a library of exercises, explore muscle groups, and track their historical workout sessions efficiently.
+
+---
+
+## ☁️ Live Deployment & Testing
+* **Live Demo:** [Visit GymTrackerApp Here](https://[YOUR-AZURE-LINK-HERE].azurewebsites.net)
+* **Cloud Infrastructure:** Fully deployed to the public using **Azure App Service**, connected to a securely configured **Azure SQL Database**.
+* **Unit Testing:** The core business logic is heavily tested using the **NUnit** framework and the **EF Core In-Memory Database** to ensure 100% data integrity without touching production tables.
 
 ---
 
@@ -52,12 +60,15 @@ The solution follows a strict **N-Tier Architecture** to cleanly separate concer
 * **GymTrackerApp.Data.Models:** Defines the database entities (`Workout`, `Exercise`, `Muscle`, `WorkoutExercise`, `WorkoutSession`, `IdentityUser`).
 * **GymTrackerApp.ViewModels:** Defines ViewModels for data transfer between Views and Controllers, utilizing strict Data Annotations.
 * **GymTrackerApp.Common:** Holds global constants, validation constraints, and helper logic.
+* **GymTrackerApp.Tests:** Dedicated test project guaranteeing the integrity of the business logic.
 
 ### **2. Tech Stack**
 * **Framework:** ASP.NET Core MVC (.NET 10.0)
-* **Database:** Microsoft SQL Server
+* **Database:** Microsoft SQL Server & Azure SQL Database
 * **ORM:** Entity Framework Core (Code-First Approach)
+* **Testing:** NUnit, EF Core In-Memory Database
 * **Front-End:** HTML5, CSS3, Bootstrap 5, Bootstrap Icons, jQuery Validation Unobtrusive.
+* **Deployment:** Microsoft Azure App Service
 
 ---
 
@@ -66,40 +77,37 @@ The solution follows a strict **N-Tier Architecture** to cleanly separate concer
 To run this project locally, follow these steps:
 
 1. **Clone the repository:**
-   ```bash
-   git clone [https://github.com/your-username/GymTrackerApp.git](https://github.com/your-username/GymTrackerApp.git)
-   ```
+   ```git clone [https://github.com/your-username/GymTrackerApp.git](https://github.com/your-username/GymTrackerApp.git)```
 2. Set up the Database:
 Open the Package Manager Console in Visual Studio, ensure GymTrackerApp.Data is selected as the Default Project, and run:
-    ```bash
-   Update-Database
-   ```
+   ```Update-Database```
 3.Run the Application:
 Set GymTrackerApp as the startup project and press F5.
 
 🔑 Default Seeded Data
 
 Upon running Update-Database, Entity Framework Core will automatically seed the database with:
-
-    17 Anatomically accurate Muscle Groups (with descriptions and images).
-    8 Standard Global Exercises.
-    Identity Roles (Admin and User).
-    A default Administrator account.
-    
+```bash
+    17 Anatomically accurate Muscle Groups (with descriptions and images).
+    8 Standard Global Exercises.
+    Identity Roles (Admin and User).
+    A default Administrator account.
+```
 To access the Admin Panel, log in with:
-
-    Email: admin@gymtracker.com
-    Password: Admin123!
+```bash
+    Email: admin@gymtracker.com
+    Password: Admin123!
+```
 
 📂 Project Structure Snapshot:
 ```bash
 GymTrackerApp/
-├── GymTrackerApp/              # Web Layer (Controllers, Views, wwwroot)
-│   ├── Areas/Admin/            # MVC Administration Area
-│   └── Areas/Identity/         # ASP.NET Core Identity Pages
-├── GymTrackerApp.Services/     # Business Logic (Services & Interfaces)
-├── GymTrackerApp.Data/         # DbContext, Migrations, Seeding Configurations
-├── GymTrackerApp.Data.Models/  # Database Entities
-├── GymTrackerApp.ViewModels/   # DTOs and Form Validation Models
-└── GymTrackerApp.Common/       # Constants & Validation Helpers
-```
+├── GymTrackerApp/              # Web Layer (Controllers, Views, wwwroot)
+│   ├── Areas/Admin/            # MVC Administration Area
+│   └── Areas/Identity/         # ASP.NET Core Identity Pages
+├── GymTrackerApp.Services/     # Business Logic (Services & Interfaces)
+├── GymTrackerApp.Data/         # DbContext, Migrations, Seeding Configurations
+├── GymTrackerApp.Data.Models/  # Database Entities
+├── GymTrackerApp.ViewModels/   # DTOs and Form Validation Models
+├── GymTrackerApp.Common/       # Constants & Validation Helpers
+└── GymTrackerApp.Tests/        # NUnit Tests Project
