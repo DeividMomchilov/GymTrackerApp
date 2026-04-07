@@ -6,6 +6,9 @@
   <Folder Name="/Services/">
     <Project Path="../GymTrackerApp.Services/GymTrackerApp.Services.csproj" Id="e5ec5ea5-9577-4d38-94b3-e6e8125c11d2" />
   </Folder>
+  <Folder Name="/Tests/">
+    <Project Path="../GymTrackerApp.Tests/GymTrackerApp.Tests.csproj" Id="e2ae5297-a12a-44c3-94cd-b2e48c35a2f9" />
+  </Folder>
   <Folder Name="/Web/">
     <Project Path="../GymTrackerApp.ViewModels/GymTrackerApp.ViewModels.csproj" />
     <Project Path="GymTrackerApp.csproj" />
