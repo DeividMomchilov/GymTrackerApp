@@ -30,15 +30,19 @@ builder.Services
 
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddAuthentication()
-    .AddGoogle(googleOptions =>
-    {
-        googleOptions.ClientId = builder.Configuration["Authentication:Google:ClientId"]
-            ?? throw new InvalidOperationException("Google ClientId not found in configuration.");
+var googleClientId = builder.Configuration["Authentication:Google:ClientId"];
 
-        googleOptions.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"]
-            ?? throw new InvalidOperationException("Google ClientSecret not found in configuration.");
-    });
+var googleClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
+
+if(!string.IsNullOrEmpty(googleClientId) && !string.IsNullOrEmpty(googleClientSecret))
+{
+    builder.Services.AddAuthentication()
+        .AddGoogle(googleOptions =>
+        {
+            googleOptions.ClientId = googleClientId!;
+            googleOptions.ClientSecret = googleClientSecret!;
+        });
+}
 
 var app = builder.Build();
 // Configure the HTTP request pipeline.
@@ -57,10 +61,10 @@ else
 app.UseHttpsRedirection();
 app.UseRouting();
 
+app.UseStatusCodePagesWithReExecute("/Home/Error/{0}");
+
 app.UseAuthentication();
 app.UseAuthorization();
-
-app.UseStatusCodePagesWithReExecute("/Home/Error/{0}");
 
 app.MapStaticAssets();
 

@@ -1,6 +1,5 @@
 ﻿using GymTrackerApp.Services.Contracts;
 using GymTrackerApp.ViewModels.ViewModels.Workout;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 

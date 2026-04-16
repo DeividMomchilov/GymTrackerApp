@@ -11,6 +11,6 @@ namespace GymTrackerApp.ViewModels.ViewModels.Exercise
         public string Description { get; set; } = null!;
         public string? ImageUrl { get; set; }
         public string MuscleName { get; set; } = null!;
-        public string CreatorId { get; set; }
+        public string? CreatorId { get; set; }
     }
 }
