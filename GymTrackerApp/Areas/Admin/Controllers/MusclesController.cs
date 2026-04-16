@@ -3,6 +3,7 @@ using GymTrackerApp.Services.Contracts;
 using GymTrackerApp.ViewModels.ViewModels.Exercise;
 using GymTrackerApp.ViewModels.ViewModels.Muscle;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace GymTrackerApp.Areas.Admin.Controllers
 {
@@ -80,9 +81,20 @@ namespace GymTrackerApp.Areas.Admin.Controllers
 
             if (User.IsInRole("Admin"))
             {
-                await muscleService.EditMuscleAsync(id, model);
-                TempData["Success"] = "Muscle updated successfully.";
-                return RedirectToAction("Index", "Muscles", new { area = "" });
+                try
+                {
+                    await muscleService.EditMuscleAsync(id, model);
+                    TempData["Success"] = "Muscle updated successfully.";
+                    return RedirectToAction("Index", "Muscles", new { area = "" });
+                }
+                catch (DbUpdateException ex)
+                {
+                    TempData["Error"] = $"An error occurred while updating the muscle: {ex.Message}";
+                }
+                catch (Exception ex)
+                {
+                    TempData["Error"] = $"An unexpected error occurred: {ex.Message}";
+                }
             }
 
             return View(model);

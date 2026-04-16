@@ -1,12 +1,14 @@
 ﻿using GymTrackerApp.Services.Contracts;
 using GymTrackerApp.ViewModels.ViewModels.Session;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace GymTrackerApp.Controllers
 {
     public class SessionsController(ISessionService sessionService) : BaseController
     {
         private const int PageSize = 15;
+
         [HttpGet]
         public async Task<IActionResult> Index(int page = 1, string search = "")
         {
@@ -30,9 +32,22 @@ namespace GymTrackerApp.Controllers
                 return RedirectToAction("Details", "Workouts", new { id = model.WorkoutId });
             }
 
-            await sessionService.LogSessionAsync(model, GetUserId()!);
-            TempData["SuccessMessage"] = "Workout logged successfully! Great job!";
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                await sessionService.LogSessionAsync(model, GetUserId()!);
+                TempData["SuccessMessage"] = "Workout logged successfully! Great job!";
+                return RedirectToAction(nameof(Index));
+            }
+            catch(DbUpdateException ex)
+            {
+                TempData["ErrorMessage"] = $"An error occurred while logging the session. Please try again.";
+                return RedirectToAction("Details", "Workouts", new { id = model.WorkoutId });
+            }
+            catch(Exception ex)
+            {
+                TempData["ErrorMessage"] = $"An unexpected error occurred: {ex.Message}";
+                return RedirectToAction("Details", "Workouts", new { id = model.WorkoutId });
+            }
         }
     }
 }
