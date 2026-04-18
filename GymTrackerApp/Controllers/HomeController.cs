@@ -20,17 +20,11 @@ namespace GymTrackerApp.Controllers
         public IActionResult Error(int statusCode)
         {
             if (statusCode == StatusCodes.Status404NotFound)
-            {
                 return View("NotFound");
-            }
             else if (statusCode == StatusCodes.Status400BadRequest)
-            {
                 return View("BadRequest");
-            }
             else if (statusCode == StatusCodes.Status500InternalServerError)
-            {
                 return View("ServerError");
-            }
 
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }

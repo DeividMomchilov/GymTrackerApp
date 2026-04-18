@@ -4,6 +4,7 @@ using GymTrackerApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GymTrackerApp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260417092107_AddExercisesAndDefaultUser")]
+    partial class AddExercisesAndDefaultUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -65,7 +68,7 @@ namespace GymTrackerApp.Data.Migrations
                             Id = 1,
                             CreatorId = "11111111-2222-3333-4444-555555555555",
                             Description = "The king of leg exercises. Targets quads, hamstrings, and glutes.",
-                            ImageUrl = "https://thumbs.dreamstime.com/b/basic-rgb-228479863.jpg",
+                            ImageUrl = "https://example.com/squat.jpg",
                             MuscleId = 13,
                             Name = "Squat"
                         },
@@ -74,7 +77,7 @@ namespace GymTrackerApp.Data.Migrations
                             Id = 2,
                             CreatorId = "11111111-2222-3333-4444-555555555555",
                             Description = "A compound movement that works the entire posterior chain.",
-                            ImageUrl = "https://static.vecteezy.com/system/resources/previews/006/417/718/non_2x/man-doing-barbell-deadlifts-exercise-flat-illustration-isolated-on-white-background-free-vector.jpg",
+                            ImageUrl = "https://example.com/deadlift.jpg",
                             MuscleId = 3,
                             Name = "Deadlift"
                         },
@@ -83,7 +86,7 @@ namespace GymTrackerApp.Data.Migrations
                             Id = 4,
                             CreatorId = "11111111-2222-3333-4444-555555555555",
                             Description = "A classic shoulder builder performed with a barbell.",
-                            ImageUrl = "https://www.shutterstock.com/image-vector/man-doing-overhead-dumbbell-shoulder-600nw-2031950852.jpg",
+                            ImageUrl = "https://example.com/ohp.jpg",
                             MuscleId = 6,
                             Name = "Overhead Press"
                         },
@@ -92,7 +95,7 @@ namespace GymTrackerApp.Data.Migrations
                             Id = 5,
                             CreatorId = "11111111-2222-3333-4444-555555555555",
                             Description = "A machine exercise that targets the latissimus dorsi.",
-                            ImageUrl = "https://thumbs.dreamstime.com/b/basic-rgb-248990552.jpg",
+                            ImageUrl = "https://example.com/latpulldown.jpg",
                             MuscleId = 4,
                             Name = "Lat Pulldown"
                         },
@@ -101,7 +104,7 @@ namespace GymTrackerApp.Data.Migrations
                             Id = 6,
                             CreatorId = "11111111-2222-3333-4444-555555555555",
                             Description = "An isolation exercise for the biceps.",
-                            ImageUrl = "https://thumbs.dreamstime.com/b/man-doing-barbell-curls-exercise-standing-bicep-curl-arm-workout-man-doing-barbell-curls-exercise-standing-bicep-curl-arm-workout-201313766.jpg",
+                            ImageUrl = "https://example.com/bicepcurl.jpg",
                             MuscleId = 7,
                             Name = "Barbell Curl"
                         },
@@ -110,7 +113,7 @@ namespace GymTrackerApp.Data.Migrations
                             Id = 7,
                             CreatorId = "11111111-2222-3333-4444-555555555555",
                             Description = "An isolation exercise for the triceps using a cable machine.",
-                            ImageUrl = "https://www.shutterstock.com/image-vector/man-doing-cable-rope-pushdown-260nw-2169476315.jpg",
+                            ImageUrl = "https://example.com/triceppushdown.jpg",
                             MuscleId = 8,
                             Name = "Tricep Rope Pushdown"
                         },
@@ -119,7 +122,7 @@ namespace GymTrackerApp.Data.Migrations
                             Id = 8,
                             CreatorId = "11111111-2222-3333-4444-555555555555",
                             Description = "Isolation exercise for the hamstrings.",
-                            ImageUrl = "https://t4.ftcdn.net/jpg/04/66/42/97/360_F_466429708_7KoDFAbfozTD5YcOneKgX5K6MaUqtEqF.jpg",
+                            ImageUrl = "https://example.com/legcurl.jpg",
                             MuscleId = 14,
                             Name = "Leg Curl"
                         },
@@ -128,7 +131,7 @@ namespace GymTrackerApp.Data.Migrations
                             Id = 9,
                             CreatorId = "11111111-2222-3333-4444-555555555555",
                             Description = "Simple but effective exercise for building calves.",
-                            ImageUrl = "https://thumbs.dreamstime.com/b/man-doing-standing-calf-raise-assisted-machine-man-doing-standing-calf-raise-assisted-machine-flat-vector-illustration-259075988.jpg",
+                            ImageUrl = "https://example.com/calfraise.jpg",
                             MuscleId = 16,
                             Name = "Calf Raise"
                         },
@@ -137,7 +140,7 @@ namespace GymTrackerApp.Data.Migrations
                             Id = 10,
                             CreatorId = "11111111-2222-3333-4444-555555555555",
                             Description = "The ultimate chest builder. A compound push exercise using a barbell.",
-                            ImageUrl = "https://www.shutterstock.com/shutterstock/photos/1841766727/display_1500/stock-vector-man-doing-barbell-bench-press-chest-press-flat-vector-illustration-isolated-on-white-background-1841766727.jpg",
+                            ImageUrl = "https://example.com/benchpress.jpg",
                             MuscleId = 1,
                             Name = "Bench Press"
                         },
@@ -146,7 +149,7 @@ namespace GymTrackerApp.Data.Migrations
                             Id = 11,
                             CreatorId = "11111111-2222-3333-4444-555555555555",
                             Description = "A bodyweight exercise that builds upper back and lat width.",
-                            ImageUrl = "https://thumbs.dreamstime.com/b/man-doing-pull-ups-exercise-flat-vector-illustration-man-doing-pull-ups-exercise-flat-vector-illustration-isolated-white-228445780.jpg",
+                            ImageUrl = "https://example.com/pullup.jpg",
                             MuscleId = 2,
                             Name = "Pull-up"
                         },
@@ -155,7 +158,7 @@ namespace GymTrackerApp.Data.Migrations
                             Id = 12,
                             CreatorId = "11111111-2222-3333-4444-555555555555",
                             Description = "A classic bodyweight exercise for chest, shoulders, and triceps.",
-                            ImageUrl = "https://thumbs.dreamstime.com/b/art-illustration-200146808.jpg",
+                            ImageUrl = "https://example.com/pushup.jpg",
                             MuscleId = 1,
                             Name = "Push-up"
                         },
@@ -164,7 +167,7 @@ namespace GymTrackerApp.Data.Migrations
                             Id = 13,
                             CreatorId = "11111111-2222-3333-4444-555555555555",
                             Description = "An isolation exercise to build the upper trapezius muscles.",
-                            ImageUrl = "https://www.shutterstock.com/image-vector/man-doing-dumbbell-shrugs-exercise-260nw-1986762905.jpg",
+                            ImageUrl = "https://example.com/shrugs.jpg",
                             MuscleId = 5,
                             Name = "Dumbbell Shrugs"
                         },
@@ -173,7 +176,7 @@ namespace GymTrackerApp.Data.Migrations
                             Id = 14,
                             CreatorId = "11111111-2222-3333-4444-555555555555",
                             Description = "An isolation exercise for forearm size and grip strength.",
-                            ImageUrl = "https://thumbs.dreamstime.com/b/man-doing-seated-palm-wrist-curls-exercise-flat-vector-illustration-isolated-white-background-223602922.jpg",
+                            ImageUrl = "https://example.com/wristcurl.jpg",
                             MuscleId = 9,
                             Name = "Wrist Curls"
                         },
@@ -182,7 +185,7 @@ namespace GymTrackerApp.Data.Migrations
                             Id = 15,
                             CreatorId = "11111111-2222-3333-4444-555555555555",
                             Description = "A basic core exercise targeting the upper abdominal muscles.",
-                            ImageUrl = "https://www.shutterstock.com/image-vector/man-doing-crunches-abdominals-exercise-600nw-1842272014.jpg",
+                            ImageUrl = "https://example.com/crunches.jpg",
                             MuscleId = 10,
                             Name = "Crunches"
                         },
@@ -191,7 +194,7 @@ namespace GymTrackerApp.Data.Migrations
                             Id = 16,
                             CreatorId = "11111111-2222-3333-4444-555555555555",
                             Description = "An advanced core exercise primarily targeting the lower abs.",
-                            ImageUrl = "https://thumbs.dreamstime.com/b/art-illustration-201075897.jpg",
+                            ImageUrl = "https://example.com/legraises.jpg",
                             MuscleId = 11,
                             Name = "Hanging Leg Raises"
                         },
@@ -200,7 +203,7 @@ namespace GymTrackerApp.Data.Migrations
                             Id = 17,
                             CreatorId = "11111111-2222-3333-4444-555555555555",
                             Description = "A core exercise designed to target the oblique muscles.",
-                            ImageUrl = "https://previews.123rf.com/images/lioputra/lioputra2111/lioputra211100044/177362267-man-doing-weighted-russian-mason-twists-exercise-flat-vector-illustration-isolated-on-white.jpg",
+                            ImageUrl = "https://example.com/russiantwist.jpg",
                             MuscleId = 12,
                             Name = "Russian Twists"
                         },
@@ -209,7 +212,7 @@ namespace GymTrackerApp.Data.Migrations
                             Id = 18,
                             CreatorId = "11111111-2222-3333-4444-555555555555",
                             Description = "The best exercise for isolating and building the glutes.",
-                            ImageUrl = "https://thumbs.dreamstime.com/b/basic-rgb-221835143.jpg",
+                            ImageUrl = "https://example.com/hipthrust.jpg",
                             MuscleId = 15,
                             Name = "Hip Thrusts"
                         },
@@ -218,7 +221,7 @@ namespace GymTrackerApp.Data.Migrations
                             Id = 19,
                             CreatorId = "11111111-2222-3333-4444-555555555555",
                             Description = "A machine isolation exercise specifically for the quadriceps.",
-                            ImageUrl = "https://www.shutterstock.com/image-vector/man-doing-seated-machine-leg-260nw-2316630653.jpg",
+                            ImageUrl = "https://example.com/legextension.jpg",
                             MuscleId = 13,
                             Name = "Leg Extension"
                         },
@@ -227,7 +230,7 @@ namespace GymTrackerApp.Data.Migrations
                             Id = 20,
                             CreatorId = "11111111-2222-3333-4444-555555555555",
                             Description = "Excellent for targeting the upper portion of the pectoral muscles.",
-                            ImageUrl = "https://static.vecteezy.com/system/resources/previews/032/647/051/non_2x/man-doing-incline-dumbbell-bench-press-twist-exercise-vector.jpg",
+                            ImageUrl = "https://example.com/inclinepress.jpg",
                             MuscleId = 1,
                             Name = "Incline Dumbbell Press"
                         },
@@ -236,7 +239,7 @@ namespace GymTrackerApp.Data.Migrations
                             Id = 21,
                             CreatorId = "11111111-2222-3333-4444-555555555555",
                             Description = "An isolation exercise that provides constant tension on the chest.",
-                            ImageUrl = "https://www.shutterstock.com/image-vector/man-doing-standing-cable-crossover-600nw-2164371137.jpg",
+                            ImageUrl = "https://example.com/cablecrossover.jpg",
                             MuscleId = 1,
                             Name = "Cable Crossover"
                         },
@@ -245,7 +248,7 @@ namespace GymTrackerApp.Data.Migrations
                             Id = 22,
                             CreatorId = "11111111-2222-3333-4444-555555555555",
                             Description = "Builds middle back thickness and improves posture.",
-                            ImageUrl = "https://www.shutterstock.com/image-vector/man-doing-seated-low-cable-600nw-2205405029.jpg",
+                            ImageUrl = "https://example.com/cablerow.jpg",
                             MuscleId = 2,
                             Name = "Seated Cable Row"
                         },
@@ -254,7 +257,7 @@ namespace GymTrackerApp.Data.Migrations
                             Id = 23,
                             CreatorId = "11111111-2222-3333-4444-555555555555",
                             Description = "A heavy compound pulling exercise for mass in the lats and mid-back.",
-                            ImageUrl = "https://www.shutterstock.com/image-vector/man-doing-bent-over-t-260nw-1837676119.jpg",
+                            ImageUrl = "https://example.com/tbarrow.jpg",
                             MuscleId = 4,
                             Name = "T-Bar Row"
                         },
@@ -263,7 +266,7 @@ namespace GymTrackerApp.Data.Migrations
                             Id = 24,
                             CreatorId = "11111111-2222-3333-4444-555555555555",
                             Description = "The best exercise for isolating the side deltoids to build wider shoulders.",
-                            ImageUrl = "https://www.shutterstock.com/shutterstock/photos/2044846490/display_1500/stock-vector-man-doing-seated-dumbbell-lateral-raises-power-partials-exercise-flat-vector-illustration-2044846490.jpg",
+                            ImageUrl = "https://example.com/lateralraise.jpg",
                             MuscleId = 6,
                             Name = "Lateral Raise"
                         },
@@ -272,7 +275,7 @@ namespace GymTrackerApp.Data.Migrations
                             Id = 25,
                             CreatorId = "11111111-2222-3333-4444-555555555555",
                             Description = "Crucial for rear deltoid development and overall shoulder health.",
-                            ImageUrl = "https://www.shutterstock.com/image-vector/man-doing-cable-face-pull-600w-1885368556.jpg",
+                            ImageUrl = "https://example.com/facepull.jpg",
                             MuscleId = 6,
                             Name = "Face Pulls"
                         },
@@ -281,7 +284,7 @@ namespace GymTrackerApp.Data.Migrations
                             Id = 26,
                             CreatorId = "11111111-2222-3333-4444-555555555555",
                             Description = "Targets the brachialis and the brachioradialis for thicker arms.",
-                            ImageUrl = "https://static.vecteezy.com/system/resources/previews/008/572/891/non_2x/man-doing-standing-dumbbell-bicep-hammer-curls-flat-illustration-isolated-on-different-layer-workout-character-vector.jpg",
+                            ImageUrl = "https://example.com/hammercurl.jpg",
                             MuscleId = 7,
                             Name = "Hammer Curl"
                         },
@@ -290,7 +293,7 @@ namespace GymTrackerApp.Data.Migrations
                             Id = 27,
                             CreatorId = "11111111-2222-3333-4444-555555555555",
                             Description = "Strict isolation for the biceps, preventing momentum.",
-                            ImageUrl = "https://static.vecteezy.com/system/resources/previews/017/423/220/non_2x/man-doing-one-arm-dumbbell-preacher-curl-side-view-flat-illustration-isolated-on-different-layer-workout-character-vector.jpg",
+                            ImageUrl = "https://example.com/preachercurl.jpg",
                             MuscleId = 7,
                             Name = "Preacher Curl"
                         },
@@ -299,7 +302,7 @@ namespace GymTrackerApp.Data.Migrations
                             Id = 28,
                             CreatorId = "11111111-2222-3333-4444-555555555555",
                             Description = "A barbell extension movement that heavily targets the long head of the triceps.",
-                            ImageUrl = "https://www.gofitnessplan.com/images/exercises/mixed/dumbbell-triceps-skullcrusher.jpg",
+                            ImageUrl = "https://example.com/skullcrusher.jpg",
                             MuscleId = 8,
                             Name = "Skull Crushers"
                         },
@@ -308,7 +311,7 @@ namespace GymTrackerApp.Data.Migrations
                             Id = 29,
                             CreatorId = "11111111-2222-3333-4444-555555555555",
                             Description = "A heavy compound bodyweight movement for thick triceps and chest.",
-                            ImageUrl = "https://www.shutterstock.com/image-vector/chair-tricep-dips-exercise-guide-600nw-2658932277.jpg",
+                            ImageUrl = "https://example.com/dips.jpg",
                             MuscleId = 8,
                             Name = "Tricep Dips"
                         },
@@ -317,7 +320,7 @@ namespace GymTrackerApp.Data.Migrations
                             Id = 30,
                             CreatorId = "11111111-2222-3333-4444-555555555555",
                             Description = "A unilateral leg exercise that builds immense quad and glute strength.",
-                            ImageUrl = "https://thumbs.dreamstime.com/b/man-doing-bulgarian-split-squats-exercise-flat-vector-illustration-isolated-white-background-man-doing-bulgarian-split-squats-224056268.jpg",
+                            ImageUrl = "https://example.com/splitsquat.jpg",
                             MuscleId = 13,
                             Name = "Bulgarian Split Squat"
                         },
@@ -326,7 +329,7 @@ namespace GymTrackerApp.Data.Migrations
                             Id = 31,
                             CreatorId = "11111111-2222-3333-4444-555555555555",
                             Description = "A machine variation of the squat that isolates the quads effectively.",
-                            ImageUrl = "https://static.vecteezy.com/system/resources/thumbnails/008/418/359/small/man-doing-hack-squat-exercise-flat-illustration-isolated-on-white-background-vector.jpg",
+                            ImageUrl = "https://example.com/hacksquat.jpg",
                             MuscleId = 13,
                             Name = "Hack Squat"
                         },
@@ -335,7 +338,7 @@ namespace GymTrackerApp.Data.Migrations
                             Id = 32,
                             CreatorId = "11111111-2222-3333-4444-555555555555",
                             Description = "Focuses entirely on the hamstrings and glutes through a hip hinge.",
-                            ImageUrl = "https://www.shutterstock.com/image-vector/woman-doing-romanian-deadlift-exercise-600nw-2118315965.jpg",
+                            ImageUrl = "https://example.com/rdl.jpg",
                             MuscleId = 14,
                             Name = "Romanian Deadlift (RDL)"
                         },
@@ -344,7 +347,7 @@ namespace GymTrackerApp.Data.Migrations
                             Id = 33,
                             CreatorId = "11111111-2222-3333-4444-555555555555",
                             Description = "Builds immense lower back, glute, and hamstring strength.",
-                            ImageUrl = "https://thumbs.dreamstime.com/z/basic-rgb-252099603.jpg",
+                            ImageUrl = "https://example.com/goodmorning.jpg",
                             MuscleId = 3,
                             Name = "Good Mornings"
                         },
@@ -353,7 +356,7 @@ namespace GymTrackerApp.Data.Migrations
                             Id = 34,
                             CreatorId = "11111111-2222-3333-4444-555555555555",
                             Description = "Targets the soleus muscle of the calves.",
-                            ImageUrl = "https://www.shutterstock.com/image-vector/man-doing-seated-dumbbell-chair-600nw-2214158705.jpg",
+                            ImageUrl = "https://example.com/seatedcalf.jpg",
                             MuscleId = 16,
                             Name = "Seated Calf Raise"
                         },
@@ -362,7 +365,7 @@ namespace GymTrackerApp.Data.Migrations
                             Id = 35,
                             CreatorId = "11111111-2222-3333-4444-555555555555",
                             Description = "A full-body carry that builds extreme grip strength and traps.",
-                            ImageUrl = "https://www.shutterstock.com/image-vector/man-doing-single-one-arm-260nw-2389002669.jpg",
+                            ImageUrl = "https://example.com/farmerswalk.jpg",
                             MuscleId = 9,
                             Name = "Farmer's Walk"
                         },
@@ -371,7 +374,7 @@ namespace GymTrackerApp.Data.Migrations
                             Id = 36,
                             CreatorId = "11111111-2222-3333-4444-555555555555",
                             Description = "An isometric core exercise that builds endurance and stability.",
-                            ImageUrl = "https://static.vecteezy.com/system/resources/thumbnails/008/573/039/small/man-doing-plank-abdominals-exercise-flat-illustration-isolated-on-white-background-vector.jpg",
+                            ImageUrl = "https://example.com/plank.jpg",
                             MuscleId = 10,
                             Name = "Plank"
                         },
@@ -380,7 +383,7 @@ namespace GymTrackerApp.Data.Migrations
                             Id = 37,
                             CreatorId = "11111111-2222-3333-4444-555555555555",
                             Description = "Dynamic movement hitting both the rectus abdominis and obliques.",
-                            ImageUrl = "https://www.shutterstock.com/image-vector/man-doing-abdominal-workout-bicycle-600nw-1831638793.jpg",
+                            ImageUrl = "https://example.com/bicycle.jpg",
                             MuscleId = 12,
                             Name = "Bicycle Crunches"
                         },
@@ -389,7 +392,7 @@ namespace GymTrackerApp.Data.Migrations
                             Id = 38,
                             CreatorId = "11111111-2222-3333-4444-555555555555",
                             Description = "Rotational core movement perfect for athletic performance and obliques.",
-                            ImageUrl = "https://static.vecteezy.com/system/resources/previews/006/417/746/non_2x/man-character-doing-downward-cable-wood-chops-exercise-flat-illustration-isolated-on-different-layers-free-vector.jpg",
+                            ImageUrl = "https://example.com/woodchopper.jpg",
                             MuscleId = 12,
                             Name = "Cable Woodchoppers"
                         });
@@ -562,57 +565,6 @@ namespace GymTrackerApp.Data.Migrations
                     b.HasIndex("CreatorId");
 
                     b.ToTable("Workouts");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatorId = "11111111-2222-3333-4444-555555555555",
-                            Description = "A comprehensive workout targeting all major muscle groups.",
-                            Title = "Full Body Workout"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CreatorId = "11111111-2222-3333-4444-555555555555",
-                            Description = "Focuses on building strength in the upper body.",
-                            Title = "Upper Body"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CreatorId = "11111111-2222-3333-4444-555555555555",
-                            Description = "Targets the lower body muscles for strength and endurance.",
-                            Title = "Lower Body"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            CreatorId = "22222222-3333-4444-5555-666666666666",
-                            Description = "A comprehensive workout targeting all major muscle groups in the body.",
-                            Title = "Full Body"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            CreatorId = "22222222-3333-4444-5555-666666666666",
-                            Description = "Focuses on building strength in the pushing muscles.",
-                            Title = "Push"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            CreatorId = "22222222-3333-4444-5555-666666666666",
-                            Description = "Targets the pulling muscles for strength and endurance.",
-                            Title = "Pull"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            CreatorId = "22222222-3333-4444-5555-666666666666",
-                            Description = "Focuses on building strength in the leg muscles.",
-                            Title = "Legs"
-                        });
                 });
 
             modelBuilder.Entity("GymTrackerApp.Data.Models.WorkoutExercise", b =>
@@ -637,216 +589,6 @@ namespace GymTrackerApp.Data.Migrations
                     b.HasIndex("ExerciseId");
 
                     b.ToTable("WorkoutExercises");
-
-                    b.HasData(
-                        new
-                        {
-                            WorkoutId = 1,
-                            ExerciseId = 1,
-                            Reps = 6,
-                            Sets = 4,
-                            Weight = 100.0
-                        },
-                        new
-                        {
-                            WorkoutId = 1,
-                            ExerciseId = 10,
-                            Reps = 8,
-                            Sets = 4,
-                            Weight = 80.0
-                        },
-                        new
-                        {
-                            WorkoutId = 1,
-                            ExerciseId = 11,
-                            Reps = 8,
-                            Sets = 4,
-                            Weight = 0.0
-                        },
-                        new
-                        {
-                            WorkoutId = 1,
-                            ExerciseId = 4,
-                            Reps = 10,
-                            Sets = 3,
-                            Weight = 50.0
-                        },
-                        new
-                        {
-                            WorkoutId = 2,
-                            ExerciseId = 20,
-                            Reps = 8,
-                            Sets = 4,
-                            Weight = 60.0
-                        },
-                        new
-                        {
-                            WorkoutId = 2,
-                            ExerciseId = 23,
-                            Reps = 8,
-                            Sets = 4,
-                            Weight = 70.0
-                        },
-                        new
-                        {
-                            WorkoutId = 2,
-                            ExerciseId = 24,
-                            Reps = 12,
-                            Sets = 3,
-                            Weight = 15.0
-                        },
-                        new
-                        {
-                            WorkoutId = 2,
-                            ExerciseId = 28,
-                            Reps = 10,
-                            Sets = 3,
-                            Weight = 35.0
-                        },
-                        new
-                        {
-                            WorkoutId = 3,
-                            ExerciseId = 2,
-                            Reps = 5,
-                            Sets = 4,
-                            Weight = 120.0
-                        },
-                        new
-                        {
-                            WorkoutId = 3,
-                            ExerciseId = 30,
-                            Reps = 10,
-                            Sets = 3,
-                            Weight = 40.0
-                        },
-                        new
-                        {
-                            WorkoutId = 3,
-                            ExerciseId = 19,
-                            Reps = 12,
-                            Sets = 3,
-                            Weight = 50.0
-                        },
-                        new
-                        {
-                            WorkoutId = 4,
-                            ExerciseId = 2,
-                            Reps = 5,
-                            Sets = 4,
-                            Weight = 110.0
-                        },
-                        new
-                        {
-                            WorkoutId = 4,
-                            ExerciseId = 12,
-                            Reps = 15,
-                            Sets = 4,
-                            Weight = 0.0
-                        },
-                        new
-                        {
-                            WorkoutId = 4,
-                            ExerciseId = 5,
-                            Reps = 10,
-                            Sets = 4,
-                            Weight = 55.0
-                        },
-                        new
-                        {
-                            WorkoutId = 5,
-                            ExerciseId = 10,
-                            Reps = 8,
-                            Sets = 4,
-                            Weight = 75.0
-                        },
-                        new
-                        {
-                            WorkoutId = 5,
-                            ExerciseId = 4,
-                            Reps = 8,
-                            Sets = 4,
-                            Weight = 45.0
-                        },
-                        new
-                        {
-                            WorkoutId = 5,
-                            ExerciseId = 29,
-                            Reps = 12,
-                            Sets = 3,
-                            Weight = 0.0
-                        },
-                        new
-                        {
-                            WorkoutId = 5,
-                            ExerciseId = 21,
-                            Reps = 12,
-                            Sets = 3,
-                            Weight = 25.0
-                        },
-                        new
-                        {
-                            WorkoutId = 6,
-                            ExerciseId = 11,
-                            Reps = 8,
-                            Sets = 4,
-                            Weight = 0.0
-                        },
-                        new
-                        {
-                            WorkoutId = 6,
-                            ExerciseId = 22,
-                            Reps = 10,
-                            Sets = 4,
-                            Weight = 60.0
-                        },
-                        new
-                        {
-                            WorkoutId = 6,
-                            ExerciseId = 6,
-                            Reps = 10,
-                            Sets = 3,
-                            Weight = 30.0
-                        },
-                        new
-                        {
-                            WorkoutId = 6,
-                            ExerciseId = 25,
-                            Reps = 15,
-                            Sets = 3,
-                            Weight = 20.0
-                        },
-                        new
-                        {
-                            WorkoutId = 7,
-                            ExerciseId = 1,
-                            Reps = 6,
-                            Sets = 4,
-                            Weight = 95.0
-                        },
-                        new
-                        {
-                            WorkoutId = 7,
-                            ExerciseId = 32,
-                            Reps = 8,
-                            Sets = 4,
-                            Weight = 80.0
-                        },
-                        new
-                        {
-                            WorkoutId = 7,
-                            ExerciseId = 8,
-                            Reps = 12,
-                            Sets = 3,
-                            Weight = 40.0
-                        },
-                        new
-                        {
-                            WorkoutId = 7,
-                            ExerciseId = 9,
-                            Reps = 15,
-                            Sets = 4,
-                            Weight = 60.0
-                        });
                 });
 
             modelBuilder.Entity("GymTrackerApp.Data.Models.WorkoutSession", b =>

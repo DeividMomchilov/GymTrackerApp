@@ -120,13 +120,6 @@ namespace GymTrackerApp.Data.Data.Configurations
                     Name = "Calves",
                     Description = "Consisting of the gastrocnemius and soleus, these lower leg muscles act to flex the foot and ankle.",
                     ImageUrl = "https://placehold.co/600x400/212529/0dcaf0?text=Calves"
-                },
-                new Muscle
-                {
-                    Id = 17,
-                    Name = "Neck",
-                    Description = "Various muscles supporting the cervical spine, responsible for rotating and bending the head.",
-                    ImageUrl = "https://placehold.co/600x400/212529/0dcaf0?text=Neck"
                 }
             );
         }

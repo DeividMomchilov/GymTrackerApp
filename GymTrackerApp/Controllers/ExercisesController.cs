@@ -68,6 +68,13 @@ namespace GymTrackerApp.Controllers
                 model.Muscles = await exerciseService.GetMusclesAsync();
                 return View(model);
             }
+            catch(Exception ex)
+            {
+                TempData["ErrorMessage"] = $"An unexpected error occurred: {ex.Message}";
+                model.Muscles = await exerciseService.GetMusclesAsync();
+                return View(model);
+            }
+
             return RedirectToAction(nameof(Index));
         }
 
@@ -148,6 +155,12 @@ namespace GymTrackerApp.Controllers
                 model.Muscles = await exerciseService.GetMusclesAsync();
                 return View(model);
             }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = $"An unexpected error occurred: {ex.Message}";
+                model.Muscles = await exerciseService.GetMusclesAsync();
+                return View(model);
+            }
 
             return RedirectToAction(nameof(Index));
         }
@@ -172,6 +185,11 @@ namespace GymTrackerApp.Controllers
             catch (DbUpdateException)
             {
                 TempData["ErrorMessage"] = "Cannot delete this exercise because it is part of a workout. Remove it from all workouts first.";
+                return RedirectToAction(nameof(Details), new { id });
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = $"An unexpected error occurred: {ex.Message}";
                 return RedirectToAction(nameof(Details), new { id });
             }
 

@@ -123,5 +123,28 @@ namespace GymTrackerApp.Tests
             Assert.That(result.Count(), Is.EqualTo(2));
             Assert.That(result.Any(e => e.Name == "Pull Up"), Is.False, "Should not return exercises for other muscles.");
         }
+        [Test]
+        public async Task GetMuscleByIdAsync_ShouldReturnNull_WhenMuscleDoesNotExist()
+        {
+            var options = GetDbOptions();
+            using var dbContext = new ApplicationDbContext(options);
+            var muscleService = new MuscleService(dbContext);
+
+            var result = await muscleService.GetMuscleByIdAsync(999);
+
+            Assert.That(result, Is.Null);
+        }
+
+        [Test]
+        public async Task GetAllMusclesAsync_ShouldReturnEmptyList_WhenDatabaseIsEmpty()
+        {
+            var options = GetDbOptions();
+            using var dbContext = new ApplicationDbContext(options);
+            var muscleService = new MuscleService(dbContext);
+
+            var result = await muscleService.GetAllMusclesAsync();
+
+            Assert.That(result, Is.Empty);
+        }
     }
 }

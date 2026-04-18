@@ -1,6 +1,5 @@
 ﻿using GymTrackerApp.Services.Contracts;
 using GymTrackerApp.ViewModels.ViewModels.Workout;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -51,6 +50,12 @@ namespace GymTrackerApp.Controllers
                 TempData["ErrorMessage"] = "An error occurred while creating the workout. Please try again.";
                 return View(model);
             }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = $"An unexpected error occurred: {ex.Message}";
+                return View(model);
+            }
+
             return RedirectToAction(nameof(Index));
         }
 
@@ -100,6 +105,11 @@ namespace GymTrackerApp.Controllers
                 TempData["ErrorMessage"] = "An error occurred while updating the workout. Please try again.";
                 return View(model);
             }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = $"An unexpected error occurred: {ex.Message}";
+                return View(model);
+            }
 
             return RedirectToAction(nameof(Index));
         }
@@ -124,6 +134,11 @@ namespace GymTrackerApp.Controllers
             catch (DbUpdateException)
             {
                 TempData["ErrorMessage"] = "An error occurred while deleting the workout. Please try again.";
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = $"An unexpected error occurred: {ex.Message}";
                 return RedirectToAction(nameof(Index));
             }
 
@@ -218,6 +233,11 @@ namespace GymTrackerApp.Controllers
                 TempData["ErrorMessage"] = "An error occurred while adding the exercise to the workout. Please try again.";
                 return RedirectToAction(nameof(Details), new { id = id });
             }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = $"An unexpected error occurred: {ex.Message}";
+                return RedirectToAction(nameof(Details), new { id = id });
+            }
 
             return RedirectToAction(nameof(Details), new { id = id });
         }
@@ -252,6 +272,11 @@ namespace GymTrackerApp.Controllers
             {
                 TempData["ErrorMessage"] = "An error occurred while removing the exercise from the workout. Please try again.";
             }
+            catch(Exception ex)
+            {
+                TempData["ErrorMessage"] = $"An unexpected error occurred: {ex.Message}";
+            }
+
             return RedirectToAction(nameof(Details), new { id = workoutId });
         }
     }

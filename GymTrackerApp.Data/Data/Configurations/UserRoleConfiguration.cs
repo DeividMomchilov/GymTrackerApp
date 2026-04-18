@@ -16,6 +16,11 @@ namespace GymTrackerApp.Data.Data.Configurations
                 {
                     UserId = "11111111-2222-3333-4444-555555555555",
                     RoleId = "1"
+                },
+                new IdentityUserRole<string>
+                {
+                    UserId = "22222222-3333-4444-5555-666666666666",
+                    RoleId = "2"
                 }
             );
         }
