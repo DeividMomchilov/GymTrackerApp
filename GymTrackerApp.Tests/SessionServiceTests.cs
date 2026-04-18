@@ -141,5 +141,23 @@ namespace GymTrackerApp.Tests
 
             Assert.That(result, Is.Null);
         }
+        [Test]
+        public async Task GetSessionsAsync_ShouldReturnAllSessions_WhenSearchIsEmpty()
+        {
+            var options = GetDbOptions();
+            using var dbContext = new ApplicationDbContext(options);
+
+            string userId = "user123";
+            dbContext.Workouts.Add(new Workout { Id = 1, Title = "Workout A", Description = "A", CreatorId = userId });
+            dbContext.WorkoutSessions.Add(new WorkoutSession { Id = 1, UserId = userId, WorkoutId = 1, DateCompleted = DateTime.UtcNow, DurationInMinutes = 30 });
+            dbContext.WorkoutSessions.Add(new WorkoutSession { Id = 2, UserId = userId, WorkoutId = 1, DateCompleted = DateTime.UtcNow, DurationInMinutes = 40 });
+            await dbContext.SaveChangesAsync();
+
+            var sessionService = new SessionService(dbContext);
+
+            var result = await sessionService.GetSessionsAsync(userId, 1, 10, search: "");
+
+            Assert.That(result.Count(), Is.EqualTo(2));
+        }
     }
 }

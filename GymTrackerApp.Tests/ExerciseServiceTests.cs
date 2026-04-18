@@ -175,5 +175,47 @@ namespace GymTrackerApp.Tests
             Assert.That(totalCount, Is.EqualTo(3));
             Assert.That(searchCount, Is.EqualTo(1));
         }
+        [Test]
+        public async Task GetExerciseByIdAsync_ShouldReturnCorrectExercise()
+        {
+            var options = GetDbOptions();
+            using var dbContext = new ApplicationDbContext(options);
+            dbContext.Exercises.Add(new Exercise { Id = 50, Name = "Test Ex", Description = "Test", CreatorId = "U" });
+            await dbContext.SaveChangesAsync();
+
+            var service = new ExerciseService(dbContext);
+            var result = await service.GetExerciseByIdAsync(50);
+
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.Name, Is.EqualTo("Test Ex"));
+        }
+
+        [Test]
+        public async Task GetMusclesAsync_ShouldReturnAllMusclesOrderedByName()
+        {
+            var options = GetDbOptions();
+            using var dbContext = new ApplicationDbContext(options);
+            dbContext.Muscles.Add(new Muscle { Id = 1, Name = "Zebra Muscle" });
+            dbContext.Muscles.Add(new Muscle { Id = 2, Name = "Apple Muscle" });
+            await dbContext.SaveChangesAsync();
+
+            var service = new ExerciseService(dbContext);
+            var result = await service.GetMusclesAsync();
+
+            Assert.That(result.Count(), Is.EqualTo(2));
+            Assert.That(result.First().Name, Is.EqualTo("Apple Muscle")); // Проверка за сортиране
+        }
+
+        [Test]
+        public async Task GetExerciseByNameAsync_ShouldReturnNull_WhenNotFound()
+        {
+            var options = GetDbOptions();
+            using var dbContext = new ApplicationDbContext(options);
+            var service = new ExerciseService(dbContext);
+
+            var result = await service.GetExerciseByNameAsync("NonExisting");
+
+            Assert.That(result, Is.Null);
+        }
     }
 }
