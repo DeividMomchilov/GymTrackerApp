@@ -4,6 +4,7 @@ using GymTrackerApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GymTrackerApp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260417092107_AddExercisesAndDefaultUser")]
+    partial class AddExercisesAndDefaultUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -562,57 +565,6 @@ namespace GymTrackerApp.Data.Migrations
                     b.HasIndex("CreatorId");
 
                     b.ToTable("Workouts");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatorId = "11111111-2222-3333-4444-555555555555",
-                            Description = "A comprehensive workout targeting all major muscle groups.",
-                            Title = "Full Body Workout"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CreatorId = "11111111-2222-3333-4444-555555555555",
-                            Description = "Focuses on building strength in the upper body.",
-                            Title = "Upper Body"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CreatorId = "11111111-2222-3333-4444-555555555555",
-                            Description = "Targets the lower body muscles for strength and endurance.",
-                            Title = "Lower Body"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            CreatorId = "22222222-3333-4444-5555-666666666666",
-                            Description = "A comprehensive workout targeting all major muscle groups in the body.",
-                            Title = "Full Body"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            CreatorId = "22222222-3333-4444-5555-666666666666",
-                            Description = "Focuses on building strength in the pushing muscles.",
-                            Title = "Push"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            CreatorId = "22222222-3333-4444-5555-666666666666",
-                            Description = "Targets the pulling muscles for strength and endurance.",
-                            Title = "Pull"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            CreatorId = "22222222-3333-4444-5555-666666666666",
-                            Description = "Focuses on building strength in the leg muscles.",
-                            Title = "Legs"
-                        });
                 });
 
             modelBuilder.Entity("GymTrackerApp.Data.Models.WorkoutExercise", b =>
@@ -637,216 +589,6 @@ namespace GymTrackerApp.Data.Migrations
                     b.HasIndex("ExerciseId");
 
                     b.ToTable("WorkoutExercises");
-
-                    b.HasData(
-                        new
-                        {
-                            WorkoutId = 1,
-                            ExerciseId = 1,
-                            Reps = 6,
-                            Sets = 4,
-                            Weight = 100.0
-                        },
-                        new
-                        {
-                            WorkoutId = 1,
-                            ExerciseId = 10,
-                            Reps = 8,
-                            Sets = 4,
-                            Weight = 80.0
-                        },
-                        new
-                        {
-                            WorkoutId = 1,
-                            ExerciseId = 11,
-                            Reps = 8,
-                            Sets = 4,
-                            Weight = 0.0
-                        },
-                        new
-                        {
-                            WorkoutId = 1,
-                            ExerciseId = 4,
-                            Reps = 10,
-                            Sets = 3,
-                            Weight = 50.0
-                        },
-                        new
-                        {
-                            WorkoutId = 2,
-                            ExerciseId = 20,
-                            Reps = 8,
-                            Sets = 4,
-                            Weight = 60.0
-                        },
-                        new
-                        {
-                            WorkoutId = 2,
-                            ExerciseId = 23,
-                            Reps = 8,
-                            Sets = 4,
-                            Weight = 70.0
-                        },
-                        new
-                        {
-                            WorkoutId = 2,
-                            ExerciseId = 24,
-                            Reps = 12,
-                            Sets = 3,
-                            Weight = 15.0
-                        },
-                        new
-                        {
-                            WorkoutId = 2,
-                            ExerciseId = 28,
-                            Reps = 10,
-                            Sets = 3,
-                            Weight = 35.0
-                        },
-                        new
-                        {
-                            WorkoutId = 3,
-                            ExerciseId = 2,
-                            Reps = 5,
-                            Sets = 4,
-                            Weight = 120.0
-                        },
-                        new
-                        {
-                            WorkoutId = 3,
-                            ExerciseId = 30,
-                            Reps = 10,
-                            Sets = 3,
-                            Weight = 40.0
-                        },
-                        new
-                        {
-                            WorkoutId = 3,
-                            ExerciseId = 19,
-                            Reps = 12,
-                            Sets = 3,
-                            Weight = 50.0
-                        },
-                        new
-                        {
-                            WorkoutId = 4,
-                            ExerciseId = 2,
-                            Reps = 5,
-                            Sets = 4,
-                            Weight = 110.0
-                        },
-                        new
-                        {
-                            WorkoutId = 4,
-                            ExerciseId = 12,
-                            Reps = 15,
-                            Sets = 4,
-                            Weight = 0.0
-                        },
-                        new
-                        {
-                            WorkoutId = 4,
-                            ExerciseId = 5,
-                            Reps = 10,
-                            Sets = 4,
-                            Weight = 55.0
-                        },
-                        new
-                        {
-                            WorkoutId = 5,
-                            ExerciseId = 10,
-                            Reps = 8,
-                            Sets = 4,
-                            Weight = 75.0
-                        },
-                        new
-                        {
-                            WorkoutId = 5,
-                            ExerciseId = 4,
-                            Reps = 8,
-                            Sets = 4,
-                            Weight = 45.0
-                        },
-                        new
-                        {
-                            WorkoutId = 5,
-                            ExerciseId = 29,
-                            Reps = 12,
-                            Sets = 3,
-                            Weight = 0.0
-                        },
-                        new
-                        {
-                            WorkoutId = 5,
-                            ExerciseId = 21,
-                            Reps = 12,
-                            Sets = 3,
-                            Weight = 25.0
-                        },
-                        new
-                        {
-                            WorkoutId = 6,
-                            ExerciseId = 11,
-                            Reps = 8,
-                            Sets = 4,
-                            Weight = 0.0
-                        },
-                        new
-                        {
-                            WorkoutId = 6,
-                            ExerciseId = 22,
-                            Reps = 10,
-                            Sets = 4,
-                            Weight = 60.0
-                        },
-                        new
-                        {
-                            WorkoutId = 6,
-                            ExerciseId = 6,
-                            Reps = 10,
-                            Sets = 3,
-                            Weight = 30.0
-                        },
-                        new
-                        {
-                            WorkoutId = 6,
-                            ExerciseId = 25,
-                            Reps = 15,
-                            Sets = 3,
-                            Weight = 20.0
-                        },
-                        new
-                        {
-                            WorkoutId = 7,
-                            ExerciseId = 1,
-                            Reps = 6,
-                            Sets = 4,
-                            Weight = 95.0
-                        },
-                        new
-                        {
-                            WorkoutId = 7,
-                            ExerciseId = 32,
-                            Reps = 8,
-                            Sets = 4,
-                            Weight = 80.0
-                        },
-                        new
-                        {
-                            WorkoutId = 7,
-                            ExerciseId = 8,
-                            Reps = 12,
-                            Sets = 3,
-                            Weight = 40.0
-                        },
-                        new
-                        {
-                            WorkoutId = 7,
-                            ExerciseId = 9,
-                            Reps = 15,
-                            Sets = 4,
-                            Weight = 60.0
-                        });
                 });
 
             modelBuilder.Entity("GymTrackerApp.Data.Models.WorkoutSession", b =>

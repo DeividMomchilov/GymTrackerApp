@@ -26,10 +26,6 @@ namespace GymTrackerApp.Data.Migrations
                     { "2", "user-role", "User", "USER" }
                 });
 
-            migrationBuilder.InsertData(
-                table: "AspNetUserRoles",
-                columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "1", "3026ea73-023b-4901-b63b-ca12cd6fe019" });
         }
 
         /// <inheritdoc />
@@ -40,10 +36,6 @@ namespace GymTrackerApp.Data.Migrations
                 keyColumn: "Id",
                 keyValue: "2");
 
-            migrationBuilder.DeleteData(
-                table: "AspNetUserRoles",
-                keyColumns: new[] { "RoleId", "UserId" },
-                keyValues: new object[] { "1", "3026ea73-023b-4901-b63b-ca12cd6fe019" });
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
